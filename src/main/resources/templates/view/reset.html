@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <title>忘记密码_高校社团网</title>
+    <link rel="stylesheet" type="text/css" href="/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/register.css"/>
+    <link rel="stylesheet" type="text/css" href="/layer/css/layer.css"/>
+    <script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+    <script src="/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/validform/Validform_v5.3.2_min.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        .input_div span {
+            background: #FFF;
+        }
+    </style>
+    <!--[if IE 6]>
+    <script src="/js/DD_belatedPNG.js"  type="text/javascript"></script>
+    <script>DD_belatedPNG.fix('.png_bg');</script>
+    <![endif]-->
+</head>
+<body>
+<div class="bm_header">
+    <div class="wrap">
+        <a class="logo" href="/foreground/toIndex"><img src="/img/logo.png" alt="高校社团网"></a>
+        <ul class="nav">
+            <li><a href="/foreground/toIndex">官网</a></li>
+        </ul>
+    </div>
+</div>
+<div class="wrap login_wrap">
+    <div class="le">
+        <img src="/img/register/register_bg.jpg">
+    </div>
+    <div class="ri">
+        <div class="title">
+            重置密码
+            <span>想起来了？快去<a href="/foreground/toLogin"> 登录 </a>吧！</span>
+        </div>
+        <form id="register">
+            <div id='registerForm'>
+                <div class="div_form clear ">
+                    <label>手 机 号 码：</label>
+                    <div class="input_div input_div1">
+                        <input id="phone" name="phone" type="text" placeholder="格式为11位的手机号" datatype="m" ajaxurl="/Check/checkisphone" errormsg="手机号码格式不正确" nullmsg="请输入手机号码"/>
+                    </div>
+                </div>
+                <div class="div_form clear ">
+                    <label>短信验证码：</label>
+                    <div class="input_div input_div5">
+                        <input id="code" name="code" type="text" style="width: 110px;" placeholder="短信验证码" datatype="n6-6" nullmsg="请输入验证码！" errormsg="验证码格式不正确！"/>
+                        <input id="sendsms" value="点击发送" type="button" style="display:inline-block;width: 120px;text-align: center;  height: 48px;  line-height: 48px;  color: #009FE3;  background-color: #fff;  border: 1px solid #009FE3;  cursor: pointer;padding: 0;border-radius: 6px;margin-left:5px;vertical-align: middle;"/>
+                    </div>
+                </div>
+                <div class="div_form clear ">
+                    <label>密    码：</label>
+                    <div class="input_div input_div2">
+                        <input id="password1" name="userpwd" type="password" placeholder="最少6个字符，区分大小写" atatype="*6-12" nullmsg="请输入密码！" errormsg="密码范围在6~12位之间！"/>
+                    </div>
+                </div>
+                <div class="div_form clear ">
+                    <label>确认密码：</label>
+                    <div class="input_div input_div3">
+                        <input id="password2" name="password2" type="password" placeholder="再次输入密码" datatype="*" recheck="userpwd" nullmsg="请确认密码！" errormsg="您两次输入的密码不一致！" />
+                    </div>
+                </div>
+                <div class="div_form clear ">
+                    <button type="submit" id="btn" class="btn">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="bm_footer">
+    <p class="ft">版权所有：高校社团网. All Rights Reserved. ICP备案号：蜀ICP备XXXXXXXX号</p></div>
+<script>
+    wait = 60;
+    $(function(){
+        $("#register").Validform({
+            btnSubmit:"#btn",
+            ajaxPost:true,
+            postonce: true,
+            datatype: {
+                "zh2-6": /^[\u4E00-\u9FA5\uf900-\ufa2d]{2,6}$/
+            },
+            tiptype:function(msg,o,cssctl){
+                if (!o.obj.is("form")) {
+                    if (o.type == 3) {
+                        layer.msg(msg, {shift: 6});
+                    }
+                    if (o.type == 4) {
+                        layer.msg(msg, {shift: 6});
+                    }
+                }
+            },
+            beforeSubmit:function(curform){
+                index = layer.load(0, {
+                    shade: [0.1,'#fff'] //0.1透明度的白色背景
+                });
+            },
+            callback:function(data){
+                if(data.error===0){
+                    layer.close(index);
+                    layer.msg('修改成功!<script>setTimeout("window.location.href=\'/index/login.html\';",600);<\/script>', {icon: 6,time:1000});
+                }else {
+                    layer.close(index);
+                    layer.msg(data.msg);
+                }
+            }
+        });
+        $("#sendsms").click( function () {
+            var obj=this;
+            var phone=$("#phone").val();
+            if(phone==""){
+                $("#phone").focus();
+                layer.msg("请输入手机号！");
+                return false;
+            }
+            if (phone.length == 11 || /^1[3|4|5|7|8][0-9]\d{4,8}$/.test(phone)) {
+                $.ajax({
+                    type:"post",
+                    url:"/Check/sendsms",
+                    data: {phone:phone,type:6},
+                    success:function(d){
+                        layer.close(index);
+                        if(d===1){
+                            layer.msg("发送成功！");
+                            time(obj);
+                        }else{
+                            layer.msg(d);
+                        }
+                    },beforeSend:function(){
+                        index = layer.load(0, {shade: [0.1,'#ccc']});
+                        $(this).css("color","#fff");
+                        $(this).css("background-color","#999");
+                        $(this).css("border-color","#999");
+                        $(this).css("cursor","default");
+                    }
+                });
+            }else {
+                layer.msg("手机号格式错误！");
+            }
+        });
+    });
+    function time(t) {
+        if (wait == 0) {
+            t.removeAttribute("disabled");
+            t.value="获取验证码";
+            t.style.color="#4bc15a";
+            t.style.backgroundColor="#fff";
+            t.style.borderColor="#4bc15a";
+            t.style.cursor="pointer";
+            t.onmouseover = function (){
+                t.style.color = '#fff';
+                t.style.backgroundColor = '#4bc15a';
+            };
+            t.onmouseout = function (){
+                t.style.color = '#4bc15a';
+                t.style.backgroundColor = '#fff';
+            };
+            wait = 60;
+            return;
+        } else {
+            t.setAttribute("disabled", true);
+            t.value="重新发送(" + wait + ")";
+            wait--;
+            setTimeout(function() {
+                        time(t)
+                    },
+                    1000)
+        };
+    }
+</script>
+</body>
+</html>
+

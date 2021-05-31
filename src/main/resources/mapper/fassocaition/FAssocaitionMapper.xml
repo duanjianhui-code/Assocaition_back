@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assocaition.management.module.foreground.dao.assocaition.FAssocaitionMapper">
+
+
+
+    <select id="selectAll" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition
+    </select>
+
+    <select id="selectAssocaition" parameterType="com.assocaition.management.module.assocaition.entity.Assocaition" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition
+        where status = '1' and parentId='0'
+        <if test="assocaition.assName!=null and ''!=assocaition.assName">
+            AND INSTR(assName,#{assocaition.assName})>0
+        </if>
+        <if test="assocaition.type!=null and ''!=assocaition.type">
+            AND INSTR(type,#{assocaition.type})>0
+        </if>
+    </select>
+
+    <select id="countSelectAssocaition" parameterType="com.assocaition.management.module.assocaition.entity.Assocaition" resultType="java.lang.Integer">
+        select count(*) from assocaition
+        where status = '1' and parentId='0'
+        <if test="assocaition.assName!=null and ''!=assocaition.assName">
+            AND INSTR(assName,#{assocaition.assName})>0
+        </if>
+        <if test="assocaition.type!=null and ''!=assocaition.type">
+            AND INSTR(type,#{assocaition.type})>0
+        </if>
+    </select>
+
+    <select id="test" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition
+    </select>
+
+    <insert id="applyAssocaition" parameterType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        insert into assocaition(id,assName,introduction,createUser,createTime,status,type,associationEmail,telephone,userId,parentId) values (#{id}, #{assName},#{introduction},#{createUser},#{createTime},#{status},#{type},#{associationEmail},#{telephone},#{userId},#{parentId})
+    </insert>
+
+    <select id="selectChildAssocaition" parameterType="java.lang.String" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition where status='1' and parentId=#{id}
+    </select>
+
+    <select id="selectAssocaitionById" parameterType="java.lang.String" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition where id = #{id}
+    </select>
+
+    <select id="getApplyAssocaitionByUserId" parameterType="java.lang.Integer" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition where userId = #{userId} and parentId='0'
+    </select>
+
+    <select id="selectMyAssocaition" parameterType="java.lang.Integer" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition where id in (SELECT assId from member where userId=#{urId} and status='1' )
+    </select>
+
+</mapper>

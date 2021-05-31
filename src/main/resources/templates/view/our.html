@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="/css/about-usphone.css" />
+		<link rel="stylesheet" type="text/css" href="/css/about_us.css"/>
+		<script src="/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/web_animation.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="/css/web_animation.css"/>
+		<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=fmnniosXxifquMmoShpSNRa9vmb784Yk"></script>
+		<title>关于我们</title>
+		<style type="text/css">
+			
+	     #allmap {
+		width: 80vw;
+		height: 50vh;
+		overflow: hidden;
+		margin:0;
+		font-family:"微软雅黑";
+		}
+	</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<!-- 头部 -->
+			<!-- 头部 -->
+			<div id="header">
+				<div class="header_left">
+					欢迎来到高校社团网
+				</div>
+				<div class="header_right">
+					<img src="/img/footer_iphone.png" />&nbsp;
+					<label>400-000-0000</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<img src="/img/footer_email.png" >&nbsp;
+					<label>admin@yourdomain.com</label>
+					<img src="/img/login.png" class="demo2">
+					<label><a th:href="${session.userinfo != null?'/':'/foreground/toLogin'}" style="color: white" alt=""
+							  th:text="${session.userinfo == null?'登录':session.userinfo.name}">登录</a> </label>
+					<label th:if="${session.userinfo !=null}">&nbsp;&nbsp;<a href="/foreground/logout" style="color: white" alt="">注销</a> </label>
+
+				</div>
+			</div>
+			<!-- 菜单栏部分 -->
+			<div id="nav">
+				<div class="nav_left">
+					<label><img src="/img/logo.png" ></label>
+				</div>
+				<div class="nav_right">
+					<ul>
+						<li><a href="/foreground/toIndex">首页</a></li>
+						<li><a href="/foreground/toAssociation">社团列表</a></li>
+						<li><a href="/foreground/toMyAssociation">我的社团</a></li>
+						<li><a href="/foreground/toPersonal">个人信息维护</a></li>
+						<li><a href="/foreground/toOur" style="color: orange;">关于我们</a></li>
+					</ul>
+				</div>
+				<!-- 手机端导航栏效果 -->
+				<div class="nav_right_modile_wrap">
+					<div class="nav_right_modile" onclick="navModile()">
+						
+					</div>
+				</div>
+			</div>
+			<!-- 滚动图部分 -->
+			<div id="column">
+				<div id="column_move1" class="column_text_wrap">
+					<div class="column_text_t">关于我们</div>
+					<div class="column_text_f"></div>
+				</div>
+			</div>
+<!-- ————————————————————————【头部】划分线—————————————————————————————— -->
+			<div class="content">
+				<div class="centent_top">
+					关于我们
+				</div>
+				
+				<div id="boo" class="content-2">
+					<div class="left-con2">
+						<img id="phoneChang" src="/img/1584517505958f9f31ba74b585b92.jpg" width="100%" height="100%"/>
+					</div>
+					<div class="right-con2" >
+						<p class="right_con2-1 bodercon2">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随着中国教育改革的深入，在大学扩招的背景下，高校的录取数大幅度提升，在大学生活中，已经不局限于课堂上。
+						</p>
+						<p class="right_con2-2 bodercon2">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;许多高校的团委都会组织不同的社团活动，对大学生的相关爱好进行培养。因此，越来越多的大学生喜欢利用学生社团进行各种活动。
+						</p>
+						<p class="right_con2-3 bodercon2">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在新时期一定要强化高校相关社团的思政教育指导工作，要求各大高校积极组织社团活动，使更多的大学生参与进来，实现学生社团活动的常态化和规范化。
+						</p>
+					</div>
+				</div>	
+				<div class="content-3">
+					<ul>
+						<li>
+							<div class="boderimg boder-pad1">
+								<img  src="/img/1584523786194b36d24334d4fa8d7.png" width="70px" height="70px"/><br />
+						        <p>联系电话：400-000-0000</p>
+							</div>
+							
+						</li>
+						<li>
+							<div class="boderimg boder-pad2">
+								<img src="/img/1584523786197a43ed8485ce81b9d.png" width="70px" height="70px"/><br />
+						        <p>邮箱：admin@yourdomain.com</p>
+						        
+							</div>
+						</li>
+						<li>
+							<div class="boderimg">
+								<img src="/img/158452378619827ede68e974f0343.png"   width="70px" height="70px"/><br />
+								
+						       <div id="center1">
+						       	<p>地址：上海市浦东新区保利广场B栋</p>
+						       </div> 
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="content-4" width="100%" >
+					<div id="allmap"></div> 
+				</div>
+				
+			</div>
+<!-- ————————————————————————【尾部】划分线—————————————————————————————— -->
+			<!-- 页脚 -->
+			<div id="foot">
+				<div class="foot_up">
+					<div class="foot_up_title_one">
+						高校社团网
+					</div>
+					<div class="foot_up_title_two">
+						SCHOOL OF EDUCAtTION CD., LTD
+					</div>
+				</div>
+				<div class="foot_up_contet">
+					<div class="foot_up_contet_left">
+						<div class="fucl_title">联系方式</div>
+						<div class="fucl_title1">
+							<img src="/img/foot_img1.png" >
+							&nbsp;联系电话：400-000-0000
+						</div>
+						<div class="fucl_title2">
+							<img src="/img/foot_img2.png" >
+							&nbsp;邮箱：admin@yourdomain.com
+						</div>
+						<div class="fucl_title3">
+							<img src="/img/foot_img3.png" >
+							&nbsp;地址：上海市浦东新区保利广场B栋
+						</div>
+					</div>
+					<div class="foot_up_contet_middle">
+						<div class="fucl_title">网站导航</div>
+						<ul>
+							<li><a href="/foreground/toIndex">首页</a></li>
+							<li><a href="/foreground/toAssociation">社团列表</a></li>
+							<li><a href="/foreground/toMyAssociation">我的社团</a></li>
+							<li><a href="/foreground/toPersonal">个人信息维护</a></li>
+							<li><a href="/foreground/toOur">关于我们</a></li>
+						</ul>
+					</div>
+					<div class="foot_up_contet_right">
+						<div class="fucl_title">
+							更好关注
+						</div>
+						<div class="foot_up_contet_right_middle">
+							扫描二维码，我们会最新的商品为您推荐，为您更好的体验与服务。
+						</div>
+						<div id="foot_up_contet_right_down">
+							<div class="foot_up_contet_right_down1">
+								<img src="/img/url.png" >
+							</div>
+							<div class="foot_up_contet_right_down2">
+								手机扫一扫
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="foot_down">
+					Copyright @ 2019-2030 Company name All rights reserved
+				</div>
+				<!-- 手机端导航栏 -->
+				<div id="nav_mobile">
+					<div class="nav_mobile_all nav_mobile1">
+						<a href="/foreground/toIndex"><img src="/img/nav_mobile_img1.png" ></a>
+						<a href="/foreground/toIndex">首页</a>
+					</div>
+					<div class="nav_mobile_all nav_mobile2">
+						<a href="/foreground/toAssociation"><img src="/img/nav_mobile_img2.png" ></a>
+						<a href="/foreground/toAssociation">社团列表</a>
+					</div>
+					<div class="nav_mobile_all nav_mobile3">
+						<a href="/foreground/toMyAssociation"><img src="/img/nav_mobile_img3.png" ></a>
+						<a href="/foreground/toMyAssociation">我的社团</a>
+					</div>
+					<div class="nav_mobile_all nav_mobile4">
+						<a href="/foreground/toPersonal"><img src="/img/nav_mobile_img4.png" ></a>
+						<a href="/foreground/toPersonal">个人信息维护</a>
+					</div>
+					<div class="nav_mobile_all nav_mobile5">
+						<a href="/foreground/toOur"><img src="/img/nav_mobile_img5.png" ></a>
+						<a href="/foreground/toOur">关于我们</a>
+					</div>
+				</div>
+				<!-- 最右边边按钮点击后的结构 -->
+				<div id="nav_mobile_w">
+					<div class="nav_mobile_w_top">
+						<img src="/img/nav_modile_background_w.png" onclick="navModiles()">
+					</div>
+					<div class="nav_mobile_w_foot">
+						<ul>
+							<li><a href="/foreground/toIndex">首页</a></li>
+							<li><a href="/foreground/toAssociation">社团列表</a></li>
+							<li><a href="/foreground/toMyAssociation">我的社团</a></li>
+							<li><a href="/foreground/toPersonal">个人信息维护</a></li>
+							<li><a href="/foreground/toOur">关于我们</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- 手机端导航栏被点击后执行 -->
+			<script type="text/javascript">
+				function navModile(){
+					 $("#nav_mobile_w").slideDown(500); 
+				}
+				function navModiles(){
+					$("#nav_mobile_w").slideUp(500);
+				}
+				
+				
+				
+				// 百度地图API功能
+				var map = new BMap.Map("allmap");    // 创建Map实例
+	            map.centerAndZoom(new BMap.Point(102.72,25.05), 10);  // 初始化地图,设置中心点坐标和地图级别
+	            //添加地图类型控件
+	            map.addControl(new BMap.MapTypeControl({
+		        mapTypes:[
+                 BMAP_NORMAL_MAP,
+               BMAP_HYBRID_MAP
+              ]}));	  
+	            map.setCurrentCity("昆明");          // 设置地图显示的城市 此项是必须设置的
+	            map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+	            var scaleCtrl = new BMapGL.ScaleControl();  // 添加比例尺控件
+                map.addControl(scaleCtrl);
+                var zoomCtrl = new BMapGL.ZoomControl();  // 添加比例尺控件
+                map.addControl(zoomCtrl);
+	
+			</script>
+		</div>
+	</body>
+</html>
+

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/css/all_courses.css"/>
+		<script src="/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/web_animation.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="/css/web_animation.css"/>
+		<link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+		<title>社团列表</title>
+	</head>
+	<body>
+		<div id="wrap">
+			<!-- 头部 -->
+			<!-- 头部 -->
+			<div id="header">
+				<div class="header_left">
+					欢迎来到高校社团网
+				</div>
+				<div class="header_right">
+					<img src="/img/footer_iphone.png" />&nbsp;
+					<label>400-000-0000</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<img src="/img/footer_email.png" >&nbsp;
+					<label>admin@yourdomain.com</label>
+					<img src="/img/login.png" class="demo2">
+					<label><a th:href="${session.userinfo != null?'/':'/foreground/toLogin'}" style="color: white" alt=""
+							  th:text="${session.userinfo == null?'登录':session.userinfo.name}">登录</a> </label>
+					<label th:if="${session.userinfo !=null}">&nbsp;&nbsp;<a href="/foreground/logout" style="color: white" alt="">注销</a> </label>
+
+				</div>
+			</div>
+			<!-- 菜单栏部分 -->
+			<div id="nav">
+				<div class="nav_left">
+					<label><img src="/img/logo.png" ></label>
+				</div>
+				<div class="nav_right">
+					<ul>
+						<li><a href="/foreground/toIndex">首页</a></li>
+						<li><a href="/foreground/toAssociation" style="color: orange;">社团列表</a></li>
+						<li><a href="/foreground/toMyAssociation">我的社团</a></li>
+						<li><a href="/foreground/toPersonal">个人信息维护</a></li>
+						<li><a href="/foreground/toOur">关于我们</a></li>
+					</ul>
+				</div>
+				<!-- 手机端导航栏效果 -->
+				<div class="nav_right_modile_wrap">
+					<div class="nav_right_modile" onclick="navModile()">
+						
+					</div>
+				</div>
+			</div>
+			<!-- 滚动图部分 -->
+			<div id="column">
+				<div id="column_move1" class="column_text_wrap">
+					<div class="column_text_t">社团列表</div>
+					<div class="column_text_f"></div>
+				</div>
+			</div>
+<!-- ————————————————————————【头部】划分线—————————————————————————————— -->
+			<!-- 主要内容部分 -->
+			<div id="centent">
+				<div class="centent_top">
+					<div class="demoTable">
+						<span style="font-size: 15px">搜索社团名称：</span>
+						<div class="layui-inline">
+							<input class="layui-input" name="assName" id="assName" autocomplete="off">
+						</div>
+						<span style="font-size: 15px">搜索类型：</span>
+						<div class="layui-inline">
+							<input class="layui-input" name="type" id="type" autocomplete="off">
+						</div>
+						<button class="layui-btn" onclick="selectAaaocation()">搜索</button>
+						<button type="button" class="layui-btn layui-btn-warm" onclick="toAddAssocaition()">申请创建社团</button>
+					</div>
+				</div>
+			
+				<div id="boo" class="centent_middle_wrap">
+					<!-- 第一页 -->
+					<div class="centent_middle" id="Assocaition">
+						<!-- 第一个div -->
+				    </div>
+				</div>
+				    <div id="test1"></div>
+			</div>
+<!-- ————————————————————————【尾部】划分线—————————————————————————————— -->
+			<!-- 页脚 -->
+			<div id="foot">
+				<div class="foot_up">
+					<div class="foot_up_title_one">
+						高校社团网
+					</div>
+					<div class="foot_up_title_two">
+						SCHOOL OF EDUCAtTION CD., LTD
+					</div>
+				</div>
+				<div class="foot_up_contet">
+					<div class="foot_up_contet_left">
+						<div class="fucl_title">联系方式</div>
+						<div class="fucl_title1">
+							<img src="/img/foot_img1.png" >
+							&nbsp;联系电话：400-000-0000
+						</div>
+						<div class="fucl_title2">
+							<img src="/img/foot_img2.png" >
+							&nbsp;邮箱：admin@yourdomain.com
+						</div>
+						<div class="fucl_title3">
+							<img src="/img/foot_img3.png" >
+							&nbsp;地址：上海市浦东新区保利广场B栋
+						</div>
+					</div>
+					<div class="foot_up_contet_middle">
+						<div class="fucl_title">网站导航</div>
+						<ul>
+							<li><a href="/foreground/toIndex">首页</a></li>
+							<li><a href="/foreground/toAssociation">社团列表</a></li>
+							<li><a href="/foreground/toMyAssociation">我的社团</a></li>
+							<li><a href="/foreground/toPersonal">个人信息维护</a></li>
+							<li><a href="/foreground/toOur">关于我们</a></li>
+						</ul>
+					</div>
+					<div class="foot_up_contet_right">
+						<div class="fucl_title">
+							更好关注
+						</div>
+						<div class="foot_up_contet_right_middle">
+							扫描二维码，我们会最新的商品为您推荐，为您更好的体验与服务。
+						</div>
+						<div id="foot_up_contet_right_down">
+							<div class="foot_up_contet_right_down1">
+								<img src="/img/url.png" >
+							</div>
+							<div class="foot_up_contet_right_down2">
+								手机扫一扫
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="foot_down">
+					Copyright @ 2019-2030 Company name All rights reserved
+				</div>
+				<!-- 手机端导航栏 -->
+				<div id="nav_mobile">
+					<div class="nav_mobile_all nav_mobile1">
+						<a href="/foreground/toIndex"><img src="/img/nav_mobile_img1.png" ></a>
+						<a href="/foreground/toIndex">首页</a>
+					</div>
+					<div class="nav_mobile_all nav_mobile2">
+						<a href="/foreground/toAssociation"><img src="/img/nav_mobile_img2.png" ></a>
+						<a href="/foreground/toAssociation">社团列表</a>
+					</div>
+					<div class="nav_mobile_all nav_mobile3">
+						<a href="/foreground/toMyAssociation"><img src="/img/nav_mobile_img3.png" ></a>
+						<a href="/foreground/toMyAssociation">我的社团</a>
+					</div>
+					<div class="nav_mobile_all nav_mobile4">
+						<a href="/foreground/toPersonal"><img src="/img/nav_mobile_img4.png" ></a>
+						<a href="/foreground/toPersonal">个人信息维护</a>
+					</div>
+					<div class="nav_mobile_all nav_mobile5">
+						<a href="/foreground/toOur"><img src="/img/nav_mobile_img5.png" ></a>
+						<a href="/foreground/toOur">关于我们</a>
+					</div>
+				</div>
+				<!-- 最右边边按钮点击后的结构 -->
+				<div id="nav_mobile_w">
+					<div class="nav_mobile_w_top">
+						<img src="/img/nav_modile_background_w.png" onclick="navModiles()">
+					</div>
+					<div class="nav_mobile_w_foot">
+						<ul>
+							<li><a href="/foreground/toIndex">首页</a></li>
+							<li><a href="/foreground/toAssociation">社团列表</a></li>
+							<li><a href="/foreground/toMyAssociation">我的社团</a></li>
+							<li><a href="/foreground/toPersonal">个人信息维护</a></li>
+							<li><a href="/foreground/toOur">关于我们</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<script src="/layui/layui.js" charset="utf-8"></script>
+			<!-- 手机端导航栏被点击后执行 -->
+			<script type="text/javascript">
+				function selectAaaocation(){
+					$.ajax({
+						type: "POST",
+						dataType: "json",
+						url: "/fassociation/countAssocaition.do",
+						data: {
+							assName: $("#assName").val(),
+							type: $("#type").val(),
+						},
+						success: function (dataResult) {
+							myCount=dataResult.count
+						}
+					}).done((dataResult)=>{
+						layui.use(['laypage','jquery'], function() {
+							var laypage = layui.laypage;
+							var $ = layui.$ //重点处
+							//执行一个laypage实例
+							var a =laypage.render({
+								elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+								,count: dataResult.count //数据总数，从服务端得到
+								, jump: function (obj, first) {
+									//obj包含了当前分页的所有参数，比如：
+									// console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+									// console.log(obj.limit); //得到每页显示的条数
+									$.ajax({
+										type: "POST",
+										dataType: "json",
+										url: "/fassociation/selectAssocaition.do",
+										data: {
+											offset: obj.curr,
+											limit: obj.limit,
+
+											assName: $("#assName").val(),
+											type: $("#type").val(),
+										},
+										success: function (dataResult) {
+											obj.count = dataResult.count
+											let str= `<div class="centent_middle" id="Assocaition">`
+											var datahtml =dataResult.data
+
+											for(var i = 0; i < datahtml.length; i++){
+												str += `<div class="center_div centent_middle_div1">
+															<div class="centent_middle_up" style="width: 342px;height: 268px">
+															<a href="/fassociation/toAssocaitionInfos.do?id=`+datahtml[i].id+`"><img src="`+datahtml[i].indexImageUrl+`"></a>
+															</div>
+															<div class="centent_middle_title">
+															<a href="/fassociation/toAssocaitionInfos.do?id=`+datahtml[i].id+`">`+datahtml[i].assName+`</a>
+															</div>
+															<div class="centent_middle_center">`
+														+datahtml[i].introduction+`
+															</div>
+															<div class="centent_middle_down">
+															<a href="/fassociation/toAssocaitionInfos.do?id=`+datahtml[i].id+`"><input type="button" name="" id="" value="查看详情" /></a>
+															</div>
+														</div>`;
+											}
+											str+=`</div>`
+											$("#Assocaition").replaceWith(str)
+										},
+										error: function (XMLHttpResponse) {
+										}
+									});
+
+									//首次不执行
+									if (!first) {
+										//do something
+									}
+								}, limit: 6,
+							});
+						});
+					})
+				}
+
+
+					var myCount=0
+					//初始化加载
+					$(function (){
+						$.ajax({
+							type: "POST",
+							dataType: "json",
+							url: "/fassociation/countAssocaition.do",
+							data: {
+								assName: $("#assName").val(),
+								type: $("#type").val(),
+							},
+							success: function (dataResult) {
+								myCount=dataResult.count
+							}
+						}).done((dataResult)=>{
+							layui.use(['laypage','jquery'], function() {
+								var laypage = layui.laypage;
+								var $ = layui.$ //重点处
+								//执行一个laypage实例
+								var a =laypage.render({
+									elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+									,count: dataResult.count //数据总数，从服务端得到
+									, jump: function (obj, first) {
+										//obj包含了当前分页的所有参数，比如：
+										// console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+										// console.log(obj.limit); //得到每页显示的条数
+										$.ajax({
+											type: "POST",
+											dataType: "json",
+											url: "/fassociation/selectAssocaition.do",
+											data: {
+												offset: obj.curr,
+												limit: obj.limit,
+
+												assName: $("#assName").val(),
+												type: $("#type").val(),
+											},
+											success: function (dataResult) {
+												obj.count = dataResult.count
+												let str= `<div class="centent_middle" id="Assocaition">`
+												var datahtml =dataResult.data
+
+												for(var i = 0; i < datahtml.length; i++){
+													str += `<div class="center_div centent_middle_div1">
+															<div class="centent_middle_up">
+															<a href="/fassociation/toAssocaitionInfos.do?id=`+datahtml[i].id+`"><img src="`+datahtml[i].indexImageUrl+`"></a>
+															</div>
+															<div class="centent_middle_title">
+															<a href="/fassociation/toAssocaitionInfos.do?id=`+datahtml[i].id+`">`+datahtml[i].assName+`</a>
+															</div>
+															<div class="centent_middle_center">`
+															+datahtml[i].introduction+`
+															</div>
+															<div class="centent_middle_down">
+															<a href="/fassociation/toAssocaitionInfos.do?id=`+datahtml[i].id+`"><input type="button" name="" id="" value="查看详情" /></a>
+															</div>
+														</div>`;
+												}
+												str+=`</div>`
+												$("#Assocaition").replaceWith(str)
+											},
+											error: function (XMLHttpResponse) {
+											}
+										});
+
+										//首次不执行
+										if (!first) {
+											//do something
+										}
+									}, limit: 6,
+								});
+							});
+						})
+					})
+
+
+
+
+				function navModile(){
+					 $("#nav_mobile_w").slideDown(500); 
+				}
+				function navModiles(){
+					$("#nav_mobile_w").slideUp(500);
+				}
+				// 特色课程页面切换效果
+				var show = document.getElementsByClassName("button_i");
+				var hide = document.getElementsByClassName("centent_middle");
+				// 鼠标移入事件
+				var index = 0;
+				show[0].onclick = function(){
+					index--;
+					console.log(index);
+					if (index<=1) {
+						index = 4;
+					};
+					$(".button_i").siblings("input").css("background-color","white").css("color","black");
+					show[index-1].style.backgroundColor="#FD6C02";
+					show[index-1].style.color="white";
+					$(".centent_middle").siblings("div").css("display","none");
+					hide[index-2].style.display=("flex");
+				};
+				show[1].onclick = function(){
+					index = 0;
+					console.log(index);
+					$(".button_i").siblings("input").css("background-color","white").css("color","black");
+					show[1].style.backgroundColor="#FD6C02";
+					show[1].style.color="white";
+					$(".centent_middle").siblings("div").css("display","none");
+					hide[1-1].style.display=("flex");
+				};
+				show[2].onclick = function(){
+					index = 1;
+					console.log(index);
+					$(".button_i").siblings("input").css("background-color","white").css("color","black");
+					show[2].style.backgroundColor="#FD6C02";
+					show[2].style.color="white";
+					$(".centent_middle").siblings("div").css("display","none");
+					hide[2-1].style.display=("flex");
+				};
+				show[3].onclick = function(){
+					index = 2;
+					console.log(index);
+					$(".button_i").siblings("input").css("background-color","white").css("color","black");
+					show[3].style.backgroundColor="#FD6C02";
+					show[3].style.color="white";
+					$(".centent_middle").siblings("div").css("display","none");
+					hide[3-1].style.display=("flex");
+				};
+				show[4].onclick = function(){
+					index++;
+					console.log(index);
+					if (index >= 3) {
+						index = 0;
+					};
+					$(".button_i").siblings("input").css("background-color","white").css("color","black");
+					show[index+1].style.backgroundColor="#FD6C02";
+					show[index+1].style.color="white";
+					$(".centent_middle").siblings("div").css("display","none");
+					hide[index].style.display=("flex");
+				};
+
+				function toAddAssocaition(){
+					layui.use('layer', function(){ //独立版的layer无需执行这一句
+						var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+						layer.open({
+							type: 1
+							,
+							title: false //不显示标题栏
+							,
+							closeBtn: false
+							,
+							area: '300px;'
+							,
+							shade: 0.8
+							,
+							id: 'LAY_layuipro1' //设定一个id，防止重复弹出
+							,
+							btn: ['火速申请', '残忍离开']
+							,
+							btnAlign: 'c'
+							,
+							moveType: 1 //拖拽模式，0或者1
+							,
+							content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">温馨提示！！！<br>创建社团须知<br><br>在填写完社团的基本信息后，不能马上生效，需要通过系统管理员审核通过后才能生效！！<br><br>当审核通过以后，就可以使用注册好的账号和密码登录后台，进行社团的管理与设置！！！<br><br>我们此后的征途是星辰大海 ^_^</div>'
+							,
+							success: function (layero) {
+								var btn = layero.find('.layui-layer-btn');
+								btn.find('.layui-layer-btn0').attr({
+									href: '/fassociation/toAddAssocaition.do'
+									, target: '_blank'
+								});
+							}
+						});
+					})
+				}
+			</script>
+		</div>
+	</body>
+</html>

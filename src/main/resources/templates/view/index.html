@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/css/index.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/index_mobie.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/web_animation.css"/>
+		<script src="/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/index.js"></script>
+		<script src="/js/web_animation.js"></script>
+		<title>高校社团网</title>
+		<style>
+			.demo2{
+				opacity:0.5;
+
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<!-- 头部 -->
+			<div id="header">
+				<div class="header_left">
+					欢迎来到高校社团网
+				</div>
+				<div class="header_right">
+					<img src="/img/footer_iphone.png" />&nbsp;
+					<label>400-000-0000</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<img src="/img/footer_email.png" >&nbsp;
+					<label>admin@yourdomain.com</label>&nbsp;&nbsp;
+					<img src="/img/login.png" class="demo2">
+					<label><a th:href="${session.userinfo != null?'/':'/foreground/toLogin'}" style="color: white" alt=""
+							  th:text="${session.userinfo == null?'登录':session.userinfo.name}">登录</a> </label>
+					<label th:if="${session.userinfo !=null}">&nbsp;&nbsp;<a href="/foreground/logout" style="color: white" alt="">注销</a> </label>
+
+				</div>
+			</div>
+			<!-- 菜单栏部分 -->
+			<div id="nav">
+				<div class="nav_left">
+					<label><img src="/img/logo.png" ></label>
+				</div>
+				<div class="nav_right">
+					<ul>
+						<li><a href="/foreground/toIndex" style="color: orange;">首页</a></li>
+						<li><a href="/foreground/toAssociation">社团列表</a></li>
+						<li><a href="/foreground/toMyAssociation">我的社团</a></li>
+						<li><a href="/foreground/toPersonal">个人信息维护</a></li>
+						<li><a href="/foreground/toOur">关于我们</a></li>
+					</ul>
+				</div>
+				<!-- 手机端导航栏效果 -->
+				<div class="nav_right_modile_wrap" onclick="navModile()">
+					<div class="nav_right_modile">
+						
+					</div>
+				</div>
+			</div>
+			<!-- 滚动图部分 -->
+			<div id="column">
+				<div class="column_text_wrap">
+					<div id="column_move1" class="column_text_t">welcome 高校社团</div>
+					<div id="column_move2" class="column_text_f">升官发财行往他处  贪生怕死误入此门</div>
+				</div>
+				<ul>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+			<!-- 主要内容页 -->
+			<div id="centent">
+				<!-- 线上教育价值 -->
+				<div id="educational_value">
+					<div class="educational_value_top">
+						<div class="text_title_top">
+							高校社团网价值
+						</div>
+						<div class="text_title_foot">
+							College Association Network value
+						</div>
+					</div>
+					<div id="college_move" class="educational_value_foot">
+						<!-- <div class="educational_value_foot_top"> -->
+							<div class="evf_foot educational_value_foot1">
+								<div class="evf_foot_left">
+									<img src="/img/educational_value_img1.png" >
+								</div>
+								<div class="evf_foot_right">
+									<div class="evf_foot_right_up">
+										便利性
+									</div>
+									<div class="evf_foot_right_down">
+										知识随处可寻，获取知识的渠道变得多样。
+									</div>
+								</div>
+							</div>
+							<div class="evf_foot educational_value_foot2">
+								<div class="evf_foot_left">
+									<img src="/img/educational_value_img2.png" >
+								</div>
+								<div class="evf_foot_right">
+									<div class="evf_foot_right_up">
+										全面性
+									</div>
+									<div class="evf_foot_right_down">
+										海量的只是内容，由浅入深地展示各个层次的内容。
+									</div>
+								</div>
+							</div>
+							<div class="evf_foot educational_value_foot3">
+								<div class="evf_foot_left">
+									<img src="/img/educational_value_img3.png" >
+								</div>
+								<div class="evf_foot_right">
+									<div class="evf_foot_right_up">
+										快速性
+									</div>
+									<div class="evf_foot_right_down">
+										在线传播速度快，可为学生节省很多时间。
+									</div>
+								</div>
+							</div>
+						<!-- </div> -->
+						<!-- <div class="educational_value_foot_foot"> -->
+							<div class="evf_foot educational_value_foot4">
+								<div class="evf_foot_left">
+									<img src="/img/educational_value_img4.png" >
+								</div>
+								<div class="evf_foot_right">
+									<div class="evf_foot_right_up">
+										及时性
+									</div>
+									<div class="evf_foot_right_down">
+										属于互联网时代特点，信息更新及时。
+									</div>
+								</div>
+							</div>
+							<div class="evf_foot educational_value_foot5">
+								<div class="evf_foot_left">
+									<img src="/img/educational_value_img5.png" >
+								</div>
+								<div class="evf_foot_right">
+									<div class="evf_foot_right_up">
+										交流性
+									</div>
+									<div class="evf_foot_right_down">
+										多角度、多方位，可为学生提供多重交流。
+									</div>
+								</div>
+							</div>
+							
+							<div class="evf_foot educational_value_foot6">
+								<div class="evf_foot_left">
+									<img src="/img/educational_value_img6.png" >
+								</div>
+								<div class="evf_foot_right">
+									<div class="evf_foot_right_up">
+										高效性
+									</div>
+									<div class="evf_foot_right_down">
+										快速处理数据，及时相应。
+									</div>
+								</div>
+							</div>
+						<!-- </div> -->
+					</div>
+				</div>
+				<!-- 实时升学资讯 -->
+				<div id="entrance_information">
+					<div class="entrance_information_top">
+						<div class="text_title_top">
+							实时社团资讯
+						</div>
+						<div class="text_title_foot">
+							ASSOCAITION INFORMATION
+						</div>
+					</div>
+					<div id="entrance_move" class="entrance_information_foot">
+						<div class="eif_foot entrance_information_foot1">
+							<div class="eif_foot_News_img">
+								<a href="#"><img src="/img/entrance_information_img1.png" ></a>
+							</div>
+							<div class="eif_foot_newTitle">
+								申请创建社团
+							</div>
+							<div class="eif_foot_newDeta">
+								个人可以在注册后创建社团，经过管理员审核，方能生效，可以登录后台管理系统管理社团。
+							</div>
+							<div class="eif_foot_newSort">
+							、
+								<span>2020-03-19</span>
+							</div>
+						</div>
+						<div class="eif_foot entrance_information_foot2">
+							<div class="eif_foot_News_img">
+								<!-- <a href="#"></a> -->
+								<a href="#"><img src="/img/entrance_information_img2.png" ></a>
+							</div>
+							<div class="eif_foot_newTitle">
+								在线提交数据
+							</div>
+							<div class="eif_foot_newDeta">
+								告别纸质文件，在线处理数据，社团成员可以提交考核数据，上传活动策划案，在社团管理员审核通过后生效。
+							</div>
+							<div class="eif_foot_newSort">
+
+								<span>2020-03-19</span>
+							</div>
+						</div>
+						<div class="eif_foot entrance_information_foot2">
+							<div class="eif_foot_News_img">
+								<!-- <a href="#"></a> -->
+								<a href="#"><img src="/img/entrance_information_img3.png" ></a>
+							</div>
+							<div class="eif_foot_newTitle">
+								现代学生的社团学习生活
+							</div>
+							<div class="eif_foot_newDeta">
+								<!-- 许多社区学院提供承诺项目，向符合条件的学生提供免学费奖励-主要是向有佩尔助学金资格的学生提供。 -->
+								学校众多社团有着燃烧的激情。有了激情，就有了延续和发展的可能；有了延续和发展
+							</div>
+							<div class="eif_foot_newSort">
+
+								<span>2020-03-19</span>
+							</div>
+						</div>
+					</div>
+				</div>
+<!--				 免费试听华丽转身 -->
+<!--				<div id="table_warp">-->
+<!--					<div class="table_one">-->
+<!--						免费试听，实现华丽转身-->
+<!--					</div>-->
+<!--					<div class="table_two">-->
+<!--						目前在全国各地拥有十三所分部，已经开设20多种门门类的UI设计、游戏设计、影视特效、室内设计、程序开发-->
+<!--						课程，配置了400多间多媒体课室，拥有2000多台IMAC苹果一体机，7000多台高配置PC电脑-->
+<!--					</div>-->
+<!--					<div id="boo" class="table_there">-->
+<!--						<input type="text" id="" value="" placeholder="姓名" />-->
+<!--						<input type="text" id="" value="" placeholder="电话" />-->
+<!--						<input type="text" id="" value="" placeholder="手机号" />-->
+<!--						<input type="text" id="" value="" placeholder="QQ" />-->
+<!--						<input type="text" id="" value="" placeholder="邮箱" />-->
+<!--						<textarea name="message" cols="50" rows="10" placeholder="留言"></textarea>-->
+<!--						<input type="submit" id="" name="" value="提交留言"/>-->
+<!--					</div>-->
+<!--				</div>-->
+				<!-- 页脚 -->
+				<div id="foot">
+					<div class="foot_up">
+						<div class="foot_up_title_one">
+							高校社团网
+						</div>
+						<div class="foot_up_title_two">
+							SCHOOL OF EDUCAtTION CD., LTD
+						</div>
+					</div>
+					<div class="foot_up_contet">
+						<div class="foot_up_contet_left">
+							<div class="fucl_title">联系方式</div>
+							<div class="fucl_title1">
+								<img src="/img/foot_img1.png" >
+								&nbsp;联系电话：400-000-0000
+							</div>
+							<div class="fucl_title2">
+								<img src="/img/foot_img2.png" >
+								&nbsp;邮箱：admin@yourdomain.com
+							</div>
+							<div class="fucl_title3">
+								<img src="/img/foot_img3.png" >
+								&nbsp;地址：上海市浦东新区保利广场B栋
+							</div>
+						</div>
+						<div class="foot_up_contet_middle">
+							<div class="fucl_title">网站导航</div>
+							<ul>
+								<li><a href="/foreground/toIndex">首页</a></li>
+								<li><a href="/foreground/toAssociation">社团列表</a></li>
+								<li><a href="/foreground/toMyAssociation">我的社团</a></li>
+								<li><a href="/foreground/toPersonal">个人信息维护</a></li>
+								<li><a href="/foreground/toOur">关于我们</a></li>
+							</ul>
+						</div>
+						<div class="foot_up_contet_right">
+							<div class="fucl_title">
+								更好关注
+							</div>
+							<div class="foot_up_contet_right_middle">
+								扫描二维码，我们会最新的商品为您推荐，为您更好的体验与服务。
+							</div>
+							<div id="foot_up_contet_right_down">
+								<div class="foot_up_contet_right_down1">
+									<img src="/img/url.png" >
+								</div>
+								<div class="foot_up_contet_right_down2">
+									手机扫一扫
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="foot_down">
+						Copyright @ 2019-2030 Company name All rights reserved
+					</div>
+				</div>
+			</div>
+			<!-- 手机端导航栏 -->
+			<div id="nav_mobile">
+				<div class="nav_mobile_all nav_mobile1">
+					<a href="/foreground/toIndex"><img src="/img/nav_mobile_img1.png" ></a>
+					<a href="/foreground/toIndex">首页</a>
+				</div>
+				<div class="nav_mobile_all nav_mobile2">
+					<a href="/foreground/toAssociation"><img src="/img/nav_mobile_img2.png" ></a>
+					<a href="/foreground/toAssociation">社团列表</a>
+				</div>
+				<div class="nav_mobile_all nav_mobile3">
+					<a href="/foreground/toMyAssociation"><img src="/img/nav_mobile_img3.png" ></a>
+					<a href="/foreground/toMyAssociation">我的社团</a>
+				</div>
+				<div class="nav_mobile_all nav_mobile4">
+					<a href="/foreground/toPersonal"><img src="/img/nav_mobile_img4.png" ></a>
+					<a href="/foreground/toPersonal">个人信息维护</a>
+				</div>
+				<div class="nav_mobile_all nav_mobile5">
+					<a href="/foreground/toOur"><img src="/img/nav_mobile_img5.png" ></a>
+					<a href="/foreground/toOur">关于我们</a>
+				</div>
+			</div>
+			<!-- 最右边边按钮点击后的结构 -->
+			<div id="nav_mobile_w">
+				<div class="nav_mobile_w_top">
+					<img src="/img/nav_modile_background_w.png" onclick="navModiles()">
+				</div>
+				<div class="nav_mobile_w_foot">
+					<ul>
+						<li><a href="/foreground/toIndex">首页</a></li>
+						<li><a href="/foreground/toAssociation">社团列表</a></li>
+						<li><a href="/foreground/toMyAssociation">我的社团</a></li>
+						<li><a href="/foreground/toPersonal">个人信息维护</a></li>
+						<li><a href="/foreground/toOur">关于我们</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- 手机端导航栏被点击后的效果 -->
+			<script type="text/javascript">
+				function navModile(){
+					 $("#nav_mobile_w").slideDown(500); 
+				}
+				function navModiles(){
+					$("#nav_mobile_w").slideUp(500);
+				}
+			</script>
+		</div>
+	</body>
+</html>

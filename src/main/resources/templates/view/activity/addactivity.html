@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>申请活动</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/index_mobie.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/web_animation.css"/>
+    <script src="/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/web_animation.js"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<!--页头-->
+<div id="header">
+    <div class="header_left">
+        欢迎来到高校社团网
+    </div>
+    <div class="header_right">
+        <img src="/img/footer_iphone.png" />&nbsp;
+        <label>400-000-0000</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <img src="/img/footer_email.png" >&nbsp;
+        <label>admin@yourdomain.com</label>&nbsp;&nbsp;
+        <img src="/img/login.png" class="demo2">
+        <label><a th:href="${session.userinfo != null?'/':'/foreground/toLogin'}" style="color: white" alt=""
+                  th:text="${session.userinfo == null?'登录':session.userinfo.name}">登录</a> </label>
+        <label th:if="${session.userinfo !=null}">&nbsp;&nbsp;<a href="/foreground/logout" style="color: white" alt="">注销</a> </label>
+
+    </div>
+</div>
+<ul class="layui-nav layui-bg-green">
+    <center>
+        <li class="layui-nav-item layui-this">
+           <span style="font-size: 20px">活动申请：信息填写</span>
+
+    </center>
+</ul>
+<div class="layui-bg-gray" style="padding: 30px;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md2">
+        </div>
+        <div class="layui-col-md8">
+            <div class="layui-panel">
+                <div style="padding: 30px">
+                    <!--  表单数据  -->
+<!--                    <form class="layui-form" action="">-->
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">活动主题</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="theme" lay-verify="title" autocomplete="off" placeholder="请输入社团名称" class="layui-input" id="theme">
+                            </div>
+                        </div>
+                        <input type="hidden" th:value="${id}" id="assId">
+
+
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">活动内容</label>
+                            <div class="layui-input-block">
+                                <textarea placeholder="请输入活动主题" class="layui-textarea" name="content" id="content"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">活动图片</label>
+                            <div class="layui-input-block">
+                                <div class="layui-upload">
+                                    <button type="button" class="layui-btn" id="test1">上传图片</button>
+                                    <div class="layui-upload-list">
+                                        <img class="layui-upload-img" id="demo1">
+                                        <p id="demoText"></p>
+                                    </div>
+                                    <div style="width: 300px;">
+                                        <div class="layui-progress layui-progress-big" lay-showpercent="yes" lay-filter="demo">
+                                            <div class="layui-progress-bar" lay-percent=""></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">活动附件上传</label>
+                            <div class="layui-input-block">
+                                <div class="layui-upload-drag" id="test10">
+                                    <i class="layui-icon"></i>
+                                    <p>点击上传，或将文件拖拽到此处</p>
+                                    <div class="layui-hide" id="uploadDemoView">
+                                        <hr>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <!--<div class="layui-form-item layui-form-text">
+                          <label class="layui-form-label">编辑器</label>
+                          <div class="layui-input-block">
+                            <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+                          </div>
+                        </div>-->
+
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" id="demo12">立即提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+<!--                    </form>-->
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md2">
+        </div>
+    </div>
+</div>
+
+<!--页脚-->
+<div id="foot">
+    <div class="foot_up">
+        <div class="foot_up_title_one">
+            高校社团网
+        </div>
+        <div class="foot_up_title_two">
+            SCHOOL OF EDUCAtTION CD., LTD
+        </div>
+    </div>
+    <div class="foot_up_contet">
+        <div class="foot_up_contet_left">
+            <div class="fucl_title">联系方式</div>
+            <div class="fucl_title1">
+                <img src="/img/foot_img1.png" >
+                &nbsp;联系电话：400-000-0000
+            </div>
+            <div class="fucl_title2">
+                <img src="/img/foot_img2.png" >
+                &nbsp;邮箱：admin@yourdomain.com
+            </div>
+            <div class="fucl_title3">
+                <img src="/img/foot_img3.png" >
+                &nbsp;地址：上海市浦东新区保利广场B栋
+            </div>
+        </div>
+        <div class="foot_up_contet_middle">
+            <div class="fucl_title">网站导航</div>
+            <ul>
+                <li><a href="/foreground/toIndex">首页</a></li>
+                <li><a href="/foreground/toAssociation">社团列表</a></li>
+                <li><a href="/foreground/toMyAssociation">我的社团</a></li>
+                <li><a href="/foreground/toPersonal">个人信息维护</a></li>
+                <li><a href="/foreground/toOur">关于我们</a></li>
+            </ul>
+        </div>
+        <div class="foot_up_contet_right">
+            <div class="fucl_title">
+                更好关注
+            </div>
+            <div class="foot_up_contet_right_middle">
+                扫描二维码，我们会最新的商品为您推荐，为您更好的体验与服务。
+            </div>
+            <div id="foot_up_contet_right_down">
+                <div class="foot_up_contet_right_down1">
+                    <img src="/img/url.png" >
+                </div>
+                <div class="foot_up_contet_right_down2">
+                    手机扫一扫
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="foot_down">
+        Copyright @ 2019-2030 Company name All rights reserved
+    </div>
+</div>
+
+
+
+
+<script src="/layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
+<script>
+    layui.use(['dropdown', 'util', 'layer','upload','element','jquery'], function(){
+        var $ = layui.jquery
+            ,upload = layui.upload
+        var element = layui.element;
+        var layer = layui.layer;
+
+
+        var activityImg=''
+        var fileUrl = ''
+
+        //常规使用 - 普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: '/file/uploadFile.do'  //改成您自己的上传接口
+            ,data: {businessType:'imager',assId:$("#assId").val()} //可选项。额外的参数，如：{id: 123, abc: 'xxx'}
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                });
+
+                element.progress('demo', '0%'); //进度条复位
+                layer.msg('上传中', {icon: 16, time: 0});
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }
+                //上传成功的一些操作
+                //……
+                activityImg=res.data.src
+                $('#demoText').html(''); //置空上传失败的状态
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+            //进度条
+            ,progress: function(n, index, e){
+                element.progress('demo', n + '%'); //可配合 layui 进度条元素使用
+                if(n == 100){
+                    layer.msg('上传完毕', {icon: 1});
+                }
+            }
+        });
+
+        //拖拽上传
+        upload.render({
+            elem: '#test10'
+            ,url: '/file/uploadFile.do'  //改成您自己的上传接口
+            ,data: {businessType:'file',assId:$("#assId").val()} //可选项。额外的参数，如：{id: 123, abc: 'xxx'}
+            ,accept: 'file' //允许上传的文件类型
+            ,done: function(res){
+                layer.msg('上传成功');
+                fileUrl=res.data.src
+                layui.$('#uploadDemoView').removeClass('layui-hide').find('span').text(res.data.fileName);
+                console.log(fileUrl)
+            }
+        });
+
+
+        $("#demo12").click(()=>{
+            console.log(3232637263)
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "/foreground/addActivity.do",
+                data: {
+                    theme:$("#theme").val(),
+                    content: $("#content").val(),
+                    activityImg: activityImg,
+                    fileUrl: fileUrl,
+                    assId: $("#assId").val()
+                },
+                success: function (dataResult) {
+                    console.log(dataResult)
+                    if (dataResult.code=20000){
+                        console.log(dataResult)
+
+                        window.location.href="/foreground/getactivityapply.do?id="+$("#assId").val()
+
+                    }else {
+                        layer.msg(dataResult.status,{time:2000});
+                    }
+                },
+                error: function (XMLHttpResponse) {
+                }
+            });
+        })
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assocaition.management.module.file.dao.FileMapper">
+
+    <!-- 添加文件   -->
+    <insert id="insertFile" parameterType="com.assocaition.management.module.file.entity.AssocaitionFile">
+        insert into assocaition_file(id,fileName,ossUrl,uploadTime,uploadUser,isDelete,assId,type)
+         values (#{id},#{fileName},#{ossUrl},#{uploadTime},#{uploadUser},#{isDelete},#{assId},#{type})
+    </insert>
+
+    <select id="selectShufflingByIdToShuffling" parameterType="java.lang.String" resultType="com.assocaition.management.module.file.entity.AssocaitionFile">
+        select *
+        from assocaition_file
+        where assId=#{id} AND type='2' and isDelete= '0'
+    </select>
+
+    <select id="selectImageByIdToHeard" parameterType="java.lang.String" resultType="com.assocaition.management.module.file.entity.AssocaitionFile">
+        select *
+        from assocaition_file
+        where assId=#{id} AND type='3' and isDelete= '0'
+    </select>
+
+    <select id="selectImagerByIdToLive" parameterType="java.lang.String" resultType="com.assocaition.management.module.file.entity.AssocaitionFile">
+        select *
+        from assocaition_file
+        where assId=#{id} AND type='3' and isDelete= '0'
+    </select>
+
+</mapper>

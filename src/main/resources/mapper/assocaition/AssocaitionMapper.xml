@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assocaition.management.module.assocaition.dao.AssocaitionMapper">
+
+    <select id="selectAssocaitions" parameterType="com.assocaition.management.module.assocaition.entity.AssocationVo" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition
+        where parentId='0' and status !='1'
+        <if test="assocaition.title!=null and ''!=assocaition.title">
+            AND INSTR(assName,#{assocaition.title})>0
+        </if>
+        <if test="assocaition.type!=null and ''!=assocaition.type">
+            AND INSTR(type,#{assocaition.type})>0
+        </if>
+        order by createTime desc
+    </select>
+
+    <select id="selectPassAssocaitions" parameterType="com.assocaition.management.module.assocaition.entity.AssocationVo" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition
+        where parentId='0' and status='1'
+        <if test="assocaition.title!=null and ''!=assocaition.title">
+            AND INSTR(assName,#{assocaition.title})>0
+        </if>
+        <if test="assocaition.type!=null and ''!=assocaition.type">
+            AND INSTR(type,#{assocaition.type})>0
+        </if>
+        order by createTime desc
+    </select>
+
+    <select id="countAssocaitions" parameterType="com.assocaition.management.module.assocaition.entity.AssocationVo" resultType="java.lang.Integer">
+        select count(*) from assocaition
+        where parentId='0' and status !='1'
+        <if test="assocaition.title!=null and ''!=assocaition.title">
+            AND INSTR(assName,#{assocaition.title})>0
+        </if>
+        <if test="assocaition.type!=null and ''!=assocaition.type">
+            AND INSTR(type,#{assocaition.type})>0
+        </if>
+    </select>
+
+    <select id="countPassAssocaitions" parameterType="com.assocaition.management.module.assocaition.entity.AssocationVo" resultType="java.lang.Integer">
+        select count(*) from assocaition
+        where parentId='0' and status='1'
+        <if test="assocaition.title!=null and ''!=assocaition.title">
+            AND INSTR(assName,#{assocaition.title})>0
+        </if>
+        <if test="assocaition.type!=null and ''!=assocaition.type">
+            AND INSTR(type,#{assocaition.type})>0
+        </if>
+    </select>
+
+    <delete id="deleteAssocaitionById" parameterType="java.lang.String">
+        delete from assocaition where id=#{id}
+    </delete>
+
+    <insert id="applyAssocaition" parameterType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        insert into assocaition(id,assName,introduction,createUser,createTime,status,type,associationEmail,telephone,userId,parentId) values (#{id}, #{assName},#{introduction},#{createUser},#{createTime},#{status},#{type},#{associationEmail},#{telephone},#{userId},#{parentId})
+    </insert>
+
+    <update id="auditAssocaition" parameterType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        update assocaition set status=#{status},opinion=#{opinion} where id =#{id}
+    </update>
+
+    <select id="selectChildAssocaition" parameterType="java.lang.String" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition where status='1' and parentId=#{id}
+    </select>
+
+    <select id="selectAssocaitionById" parameterType="java.lang.String" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition where id = #{id}
+    </select>
+
+    <select id="getApplyAssocaitionByUserId" parameterType="java.lang.Integer" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition where userId = #{userId} and parentId='0'
+    </select>
+
+    <select id="selectMyAssocaition" parameterType="java.lang.Integer" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition where id in (SELECT assId from member where userId=#{urId} and status='1' )
+    </select>
+
+    <select id="selectAssocaitionUserId" parameterType="java.lang.Integer" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition where userId=#{urId}
+    </select>
+
+    <select id="selectAssocaitionEmails" resultType="java.util.Map">
+        select createUser as name,id as id,associationEmail as email from assocaition where parentId='0'
+    </select>
+
+    <insert id="addAssocitionChil" parameterType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        insert into assocaition(id,assName,introduction,status,parentId,indexImageUrl,entryFee) values (#{id}, #{assName},#{introduction},#{status},#{parentId},#{indexImageUrl},#{entryFee})
+    </insert>
+
+    <select id="selectAssocaitionChil" parameterType="java.lang.String" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition where parentId=#{assId}
+    </select>
+
+    <update id="updateStatus" parameterType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        update assocaition set status=#{status} where id =#{id}
+    </update>
+
+    <update id="updateAssocaition" parameterType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        update assocaition set assName=#{assName},introduction=#{introduction},associationEmail=#{associationEmail},telephone=#{telephone},indexImageUrl=#{indexImageUrl}
+        where id =#{id}
+    </update>
+
+    <update id="updateAssocaition1" parameterType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        update assocaition set userId=null ,associationEmail=null ,createUser= null,telephone=null  where id =#{id}
+    </update>
+
+    <update id="updateAssocaition2" parameterType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        update assocaition set userId=#{userId}, createUser=#{createUser},associationEmail=#{associationEmail} ,telephone=#{telephone} where id =#{id}
+    </update>
+</mapper>

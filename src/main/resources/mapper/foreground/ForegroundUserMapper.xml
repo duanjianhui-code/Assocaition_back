@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assocaition.management.module.foreground.dao.ForegroundUserMapper">
+
+    <select id="findByUserTelAndPwd"
+            parameterType="com.assocaition.management.module.authority.entity.AuthSysUser"
+            resultType="com.assocaition.management.module.authority.entity.AuthSysUser">
+        select
+            ur_id as urId,
+            ur_user_name as urUserName,
+            introduction as introduction,
+            name as name ,
+            ur_telephone as telephone,
+            type as type,
+            email as email,
+            age as age,
+            sex as sex,
+            avatar as avatar
+        from authsys_user where ur_telephone = #{telephone} and ur_password = #{urPassword}
+    </select>
+
+    <insert id="addUser" parameterType="com.assocaition.management.module.authority.entity.AuthSysUser">
+        insert into authsys_user(ur_user_name,ur_password,name,ur_telephone,type) values (#{urUserName}, #{urPassword},#{name},#{telephone},#{type})
+    </insert>
+</mapper>

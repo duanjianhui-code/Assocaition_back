@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
+<div class="layui-bg-gray" style="padding: 30px;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md3">
+            <div class="layui-panel" style="height: 375px" id="myImage">
+                <div style="padding: 50px 30px;" >
+                   <div style="text-align: center"><a th:href="${session.userinfo == null?'//t.cn/RCzsdCq':session.userinfo.avatar}"><img th:src="${session.userinfo == null?'//t.cn/RCzsdCq':session.userinfo.avatar}" class="layui-nav-img" style="height: 150px;width: 150px;"></a></div>
+                    <div class="layui-card">
+                        <div class="layui-card-header">个人介绍</div>
+                        <div class="layui-card-body" th:text="${session.userinfo == null?'他人很懒，未留下什么！！！':(session.userinfo.introduction==''?'他人很懒，未留下什么！！！':session.userinfo.introduction)}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-panel" style="height: 375px" id="myImageEditor">
+
+                <div style="padding: 20px 30px;" >
+                    <div class="layui-upload" style="text-align: center">
+                        <button type="button" class="layui-btn" id="test1">上传头像</button>
+                        <div class="layui-upload-list">
+                            <img th:src="${session.userinfo == null?'//t.cn/RCzsdCq':session.userinfo.avatar}" class="layui-upload-img" id="demo1" style="width: 100px;height: 100px;border-radius: 50%;">
+                            <p id="demoText"></p>
+                            <input type="hidden" th:value="${session.userinfo == null?'//t.cn/RCzsdCq':session.userinfo.avatar}" id="myAvatar">
+                        </div>
+                    </div>
+                    <center>
+                        <div style="width:180px;">
+                            <div class="layui-progress layui-progress-big" lay-showpercent="yes" lay-filter="demo" style="background-color:#009688;">
+                                <div class="layui-progress-bar" lay-percent="" style="background-color:#FF5722;"></div>
+                            </div>
+                        </div>
+                    </center>
+<!--                    <div style="text-align: center"><img th:src="${session.userinfo == null?'//t.cn/RCzsdCq':session.userinfo.avatar}" class="layui-nav-img" style="height: 150px;width: 150px;"></div>-->
+                    <div class="layui-card">
+                        <div class="layui-card-header">个人介绍</div>
+                        <div class="layui-card-body">
+<!--                            <input type="text" name="introduction" id="introduction" lay-verify="introduction" autocomplete="off" th:value="${session.userinfo == null?'':session.userinfo.introduction}" class="layui-input">-->
+                            <textarea placeholder="请输入内容" class="layui-textarea" style="height: 100px" rows="10" cols="90"
+                            th:text="${session.userinfo == null?'':session.userinfo.introduction}"
+                            id="myIntroduction"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-col-md9">
+            <div class="layui-panel">
+
+                <div style="padding: 50px 30px;">
+                    <div class="grid-demo">
+                        <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户名</label>
+                            <div class="layui-input-block">
+    <!--                            <span class="layui-font-14" th:text="${session.userinfo == null?'':session.userinfo.name}"></span>-->
+                                <input type="text" name="urUserName" id="urUserName" lay-verify="urUserName" autocomplete="off" th:value="${session.userinfo == null?'':session.userinfo.urUserName}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">姓名</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="name" lay-verify="name" lay-reqtext="用户名是必填项，岂能为空？" th:value="${session.userinfo == null?'':session.userinfo.name}" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">手机</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="telephone" lay-verify="telephone" autocomplete="off" class="layui-input" th:value="${session.userinfo == null?'':session.userinfo.telephone}" >
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">邮箱</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="email" lay-verify="email1" autocomplete="off" class="layui-input" th:value="${session.userinfo == null?'':session.userinfo.email}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">年龄</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="age" lay-verify="age" autocomplete="off" class="layui-input" th:value="${session.userinfo == null?'':session.userinfo.age}">
+                                </div>
+                            </div>
+
+                            <div class="layui-inline">
+                                <label class="layui-form-label">性别</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="sex" value="1" title="男" th:checked="${(session.userinfo == null?'':session.userinfo.sex) == '1'}" id="myMale">
+                                    <input type="radio" name="sex" value="0" title="女" th:checked="${(session.userinfo == null?'':session.userinfo.sex) == '0'}" id="myFemale">
+<!--                                    <input type="hidden" th:value="${session.userinfo == null?'':session.userinfo.sex}"  id="mySex">-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button type="button" class="layui-btn layui-btn-warm" lay-submit="" lay-filter="editor" id="myEditor">立即修改</button>
+                                <divs style="display: none">
+                                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" id="mySubmit">立即提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary" id="myReset">重置</button>
+                                <button type="cancel" class="layui-btn layui-btn-primary" id="myCancel">取消</button>
+                                </divs>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'layedit', 'laydate','jquery','upload', 'element', 'layer'], function(){
+
+        var $ = layui.$ //重点处
+            ,upload = layui.upload
+            ,element = layui.element
+            ,layer = layui.layer;
+        var Avatar=''
+        //常规使用 - 头像上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: '/file/uploadFile.do' //改成您自己的上传接口
+            ,data: {businessType:'imager',assId:''} //可选项。额外的参数，如：{id: 123, abc: 'xxx'}
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                });
+
+                element.progress('demo', '0%'); //进度条复位
+                layer.msg('上传中', {icon: 16, time: 0});
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }
+                //上传成功的一些操作
+                //……
+                Avatar=res.data.src
+                $('#demoText').html(''); //置空上传失败的状态
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+            //进度条
+            ,progress: function(n, index, e){
+                element.progress('demo', n + '%'); //可配合 layui 进度条元素使用
+                if(n == 100){
+                    layer.msg('上传完毕', {icon: 1});
+                }
+            }
+        });
+
+        //初始化加载
+        $(function (){
+            let inputs = $("form.layui-form").find("input")
+            for (const input of inputs) {
+                $(input).attr("disabled","disabled")
+                $(input).css("color","#aba9a9")
+            }
+            $("#myImageEditor").css("display","none")
+        })
+
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        // form.verify({
+        //     title: function(value){
+        //         // if(value.length < 5){
+        //         //     return '标题至少得5个字符啊';
+        //         // }
+        //     }
+        //     ,pass: [
+        //         /^[\S]{6,12}$/
+        //         ,'密码必须6到12位，且不能出现空格'
+        //     ]
+        //     ,content: function(value){
+        //         layedit.sync(editIndex);
+        //     }
+        // });
+
+        //监听指定开关
+        form.on('switch(switchTest)', function(data){
+            layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+                offset: '6px'
+            });
+            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            var user = data.field
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "/person/updateUser.do",
+                data: {
+                    urUserName: user.urUserName,
+                    email: user.email,
+                    telephone: user.telephone,
+                    age: user.age,
+                    name: user.name,
+                    sex: user.sex,
+                    avatar: Avatar,
+                    introduction:$("#myIntroduction").val()
+                },
+                success: function (dataResult) {
+                    if (dataResult.code=20000){
+                        layer.msg(dataResult.status,{icon:1,time:2000},function (){
+                            parent.location.reload();
+                        });
+                        }else {
+                        layer.msg(dataResult.status,{time:2000});
+                    }
+                },
+                error: function (XMLHttpResponse) {
+                }
+            });
+            return false;
+        });
+
+        form.on('submit(editor)',(e)=>{
+            $(e.elem).css("display","none")
+            $(e.elem).next().css("display","")
+            let inputs = $("form.layui-form").find("input")
+            for (const input of inputs) {
+                $(input).removeAttr("disabled")
+                $(input).css("color","#0C0C0C")
+            }
+            $("#myImage").css("display","none")
+            $("#urUserName").attr("readOnly","readOnly")
+            $("#urUserName").css("color","#aba9a9")
+            $("#myImageEditor").css("display","")
+        })
+
+        //表单取值
+        layui.$('#LAY-component-form-getval').on('click', function(){
+            var data = form.val('example');
+            alert(JSON.stringify(data));
+        });
+
+    });
+</script>
+
+</body>
+</html>

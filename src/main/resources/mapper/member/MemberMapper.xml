@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assocaition.management.module.member.dao.MemberMapper">
+
+    <insert id="addMember" parameterType="com.assocaition.management.module.member.entity.AssocaitionMember">
+        insert into member(id,memberName,assId,status,memberEmail,memberPhone,nativePlace,memberAge,memberSex,userId,assName,orderNo,isOrder,position,createTime)
+        values (#{id},#{memberName},#{assId},#{status},#{memberEmail},#{memberPhone},#{nativePlace},#{memberAge},#{memberSex},#{userId},#{assName},#{orderNo},#{isOrder},#{position},#{createTime})
+    </insert>
+
+    <select id="getApplyMember" parameterType="java.lang.Integer" resultType="com.assocaition.management.module.member.entity.AssocaitionMember">
+        select * from member
+        where userId = #{urId}
+    </select>
+
+    <select id="selectMemberEmails" parameterType="java.lang.String" resultType="java.util.Map">
+        select memberName as name,memberEmail as email,id as id from member where assId=#{assId} and status = '1'
+    </select>
+
+    <select id="selectMemberListByAssId" parameterType="com.assocaition.management.module.member.entity.MemberVo" resultType="com.assocaition.management.module.member.entity.AssocaitionMember">
+        select *
+        from member
+        where assId=#{memberVo.assId} order by position desc
+    </select>
+
+    <select id="countMemberListByAssId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(*) from member where assId=#{assId}
+    </select>
+
+    <update id="updateMember" parameterType="com.assocaition.management.module.member.entity.AssocaitionMember">
+        update member set position=#{position} where id=#{id}
+    </update>
+
+    <select id="selectAllMemberList" parameterType="com.assocaition.management.module.member.entity.MemberVo" resultType="com.assocaition.management.module.member.entity.AssocaitionMember">
+        select * from member  where assId in
+        (select id from assocaition where parentId=#{memberVo.assId})
+        <if test="memberVo.memberName!=null and ''!=memberVo.memberName">
+            AND INSTR(memberName,#{memberVo.memberName})>0
+        </if>
+        <if test="memberVo.memberSex!=null and ''!=memberVo.memberSex">
+            AND memberSex=#{memberVo.memberSex}
+        </if>
+        <if test="memberVo.memberAge!=null and ''!=memberVo.memberAge">
+            AND memberAge=#{memberVo.memberAge}
+        </if>
+        order by createTime desc
+    </select>
+
+    <select id="countselectAllMemberList" parameterType="com.assocaition.management.module.member.entity.MemberVo" resultType="java.lang.Integer">
+        select count(*)from member  where assId in
+        (select id from assocaition where parentId=#{memberVo.assId})
+        <if test="memberVo.memberName!=null and ''!=memberVo.memberName">
+            AND INSTR(memberName,#{memberVo.memberName})>0
+        </if>
+        <if test="memberVo.memberSex!=null and ''!=memberVo.memberSex">
+            AND memberSex=#{memberVo.memberSex}
+        </if>
+        <if test="memberVo.memberAge!=null and ''!=memberVo.memberAge">
+            AND memberAge=#{memberVo.memberAge}
+        </if>
+    </select>
+
+    <update id="auditMember" parameterType="com.assocaition.management.module.member.entity.AssocaitionMember">
+        update member set status=#{status} where id=#{id}
+    </update>
+
+    <delete id="deleteMemberById" parameterType="java.lang.String">
+        delete from member where id=#{id}
+    </delete>
+
+    <select id="selectPassAllMemberList" parameterType="com.assocaition.management.module.member.entity.MemberVo" resultType="com.assocaition.management.module.member.entity.AssocaitionMember">
+        select * from member  where assId in
+        (select id from assocaition where parentId=#{memberVo.assId})
+        <if test="memberVo.memberName!=null and ''!=memberVo.memberName">
+            AND INSTR(memberName,#{memberVo.memberName})>0
+        </if>
+        <if test="memberVo.memberSex!=null and ''!=memberVo.memberSex">
+            AND memberSex=#{memberVo.memberSex}
+        </if>
+        <if test="memberVo.memberAge!=null and ''!=memberVo.memberAge">
+            AND memberAge=#{memberVo.memberAge}
+        </if>
+        and status='1'
+        order by createTime desc
+    </select>
+
+    <select id="countPassAllselectMemberList" parameterType="com.assocaition.management.module.member.entity.MemberVo" resultType="java.lang.Integer">
+        select count(*)from member  where assId in
+        (select id from assocaition where parentId=#{memberVo.assId})
+        <if test="memberVo.memberName!=null and ''!=memberVo.memberName">
+            AND INSTR(memberName,#{memberVo.memberName})>0
+        </if>
+        <if test="memberVo.memberSex!=null and ''!=memberVo.memberSex">
+            AND memberSex=#{memberVo.memberSex}
+        </if>
+        <if test="memberVo.memberAge!=null and ''!=memberVo.memberAge">
+            AND memberAge=#{memberVo.memberAge}
+        </if>
+        and status='1'
+    </select>
+
+
+    <select id="selectMemberList" parameterType="com.assocaition.management.module.member.entity.MemberVo" resultType="com.assocaition.management.module.member.entity.AssocaitionMember">
+        select * from member  where assId=#{memberVo.assId}
+        <if test="memberVo.memberName!=null and ''!=memberVo.memberName">
+            AND INSTR(memberName,#{memberVo.memberName})>0
+        </if>
+        <if test="memberVo.memberSex!=null and ''!=memberVo.memberSex">
+            AND memberSex=#{memberVo.memberSex}
+        </if>
+        <if test="memberVo.memberAge!=null and ''!=memberVo.memberAge">
+            AND memberAge=#{memberVo.memberAge}
+        </if>
+    </select>
+
+    <select id="countselectMemberList" parameterType="com.assocaition.management.module.member.entity.MemberVo" resultType="java.lang.Integer">
+        select count(*)from member  where assId=#{memberVo.assId}
+        <if test="memberVo.memberName!=null and ''!=memberVo.memberName">
+            AND INSTR(memberName,#{memberVo.memberName})>0
+        </if>
+        <if test="memberVo.memberSex!=null and ''!=memberVo.memberSex">
+            AND memberSex=#{memberVo.memberSex}
+        </if>
+        <if test="memberVo.memberAge!=null and ''!=memberVo.memberAge">
+            AND memberAge=#{memberVo.memberAge}
+        </if>
+    </select>
+
+
+    <select id="selectPassMemberList" parameterType="com.assocaition.management.module.member.entity.MemberVo" resultType="com.assocaition.management.module.member.entity.AssocaitionMember">
+        select * from member  where assId=#{memberVo.assId}
+        <if test="memberVo.memberName!=null and ''!=memberVo.memberName">
+            AND INSTR(memberName,#{memberVo.memberName})>0
+        </if>
+        <if test="memberVo.memberSex!=null and ''!=memberVo.memberSex">
+            AND memberSex=#{memberVo.memberSex}
+        </if>
+        <if test="memberVo.memberAge!=null and ''!=memberVo.memberAge">
+            AND memberAge=#{memberVo.memberAge}
+        </if>
+        and status='1'
+    </select>
+
+    <select id="countPassselectMemberList" parameterType="com.assocaition.management.module.member.entity.MemberVo" resultType="java.lang.Integer">
+        select count(*)from member  where assId=#{memberVo.assId}
+        <if test="memberVo.memberName!=null and ''!=memberVo.memberName">
+            AND INSTR(memberName,#{memberVo.memberName})>0
+        </if>
+        <if test="memberVo.memberSex!=null and ''!=memberVo.memberSex">
+            AND memberSex=#{memberVo.memberSex}
+        </if>
+        <if test="memberVo.memberAge!=null and ''!=memberVo.memberAge">
+            AND memberAge=#{memberVo.memberAge}
+        </if>
+        and status='1'
+    </select>
+
+
+
+
+
+
+</mapper>

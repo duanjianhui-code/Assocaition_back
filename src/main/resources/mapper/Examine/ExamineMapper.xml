@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assocaition.management.module.examine.dao.ExamineMapper">
+
+    <insert id="addExamine" parameterType="com.assocaition.management.module.examine.entity.Examine">
+        insert into examine(id,assId,status,contentJson,submitUser,submitTime,score,userId)
+        values (#{id}, #{assId},#{status},#{contentJson},#{submitUser},#{submitTime},#{score},#{userId})
+    </insert>
+
+    <select id="selectExamine" parameterType="com.assocaition.management.module.examine.entity.Examine" resultType="com.assocaition.management.module.examine.entity.Examine">
+        select * from examine
+        where assId=#{assId} and userId=#{userId} and status='1'
+    </select>
+
+    <select id="selectAllExamineList" parameterType="com.assocaition.management.module.examine.entity.ExamineVo" resultType="com.assocaition.management.module.examine.entity.Examine">
+        select * from examine  where assId in
+        (select id from assocaition where parentId=#{memberVo.assId})
+        <if test="memberVo.submitUser!=null and ''!=memberVo.submitUser">
+            AND INSTR(submitUser,#{memberVo.submitUser})>0
+        </if>
+    </select>
+
+
+    <select id="countselectAllExamineList" parameterType="com.assocaition.management.module.examine.entity.ExamineVo" resultType="java.lang.Integer">
+        select count(*) from examine  where assId in
+        (select id from assocaition where parentId=#{memberVo.assId})
+        <if test="memberVo.submitUser!=null and ''!=memberVo.submitUser">
+            AND INSTR(submitUser,#{memberVo.submitUser})>0
+        </if>
+    </select>
+
+
+    <select id="selectMemberList" parameterType="com.assocaition.management.module.examine.entity.ExamineVo" resultType="com.assocaition.management.module.examine.entity.Examine">
+        select * from examine  where assId=#{memberVo.assId}
+        <if test="memberVo.submitUser!=null and ''!=memberVo.submitUser">
+            AND INSTR(submitUser,#{memberVo.submitUser})>0
+        </if>
+    </select>
+
+
+    <select id="countselectMemberList" parameterType="com.assocaition.management.module.examine.entity.ExamineVo" resultType="java.lang.Integer">
+        select count(*) from examine  where assId=#{memberVo.assId}
+        <if test="memberVo.submitUser!=null and ''!=memberVo.submitUser">
+            AND INSTR(submitUser,#{memberVo.submitUser})>0
+        </if>
+    </select>
+
+    <update id="auditExamine" parameterType="com.assocaition.management.module.examine.entity.Examine" >
+        update examine set status=#{status} where id=#{id}
+    </update>
+
+    <delete id="deleteMemberById" parameterType="java.lang.String">
+        delete from examine where id=#{id}
+    </delete>
+
+    <select id="selectPassAllExamineList" parameterType="com.assocaition.management.module.examine.entity.ExamineVo" resultType="com.assocaition.management.module.examine.entity.Examine">
+        select * from examine  where assId in
+        (select id from assocaition where parentId=#{memberVo.assId})
+        <if test="memberVo.submitUser!=null and ''!=memberVo.submitUser">
+            AND INSTR(submitUser,#{memberVo.submitUser})>0
+        </if>
+        and status='1'
+    </select>
+
+
+    <select id="countselectPassAllExamineList" parameterType="com.assocaition.management.module.examine.entity.ExamineVo" resultType="java.lang.Integer">
+        select count(*) from examine  where assId in
+        (select id from assocaition where parentId=#{memberVo.assId})
+        <if test="memberVo.submitUser!=null and ''!=memberVo.submitUser">
+            AND INSTR(submitUser,#{memberVo.submitUser})>0
+        </if>
+        and status='1'
+    </select>
+
+    <select id="selectPassMemberList" parameterType="com.assocaition.management.module.examine.entity.ExamineVo" resultType="com.assocaition.management.module.examine.entity.Examine">
+        select * from examine  where assId=#{memberVo.assId}
+        <if test="memberVo.submitUser!=null and ''!=memberVo.submitUser">
+            AND INSTR(submitUser,#{memberVo.submitUser})>0
+        </if>
+        and status='1'
+    </select>
+
+
+    <select id="countPassselectMemberList" parameterType="com.assocaition.management.module.examine.entity.ExamineVo" resultType="java.lang.Integer">
+        select count(*) from examine  where assId=#{memberVo.assId}
+        <if test="memberVo.submitUser!=null and ''!=memberVo.submitUser">
+            AND INSTR(submitUser,#{memberVo.submitUser})>0
+        </if>
+        and status='1'
+    </select>
+
+</mapper>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assocaition.management.module.announcement.dao.AnnouncementMapper">
+    <insert id="addAssocaitionAnnouncement" parameterType="com.assocaition.management.module.announcement.entity.Announcement">
+        insert into announcement(id,theme,content,createTime,createUser,isEnable,assId)
+         values (#{id},#{theme},#{content},#{createTime},#{createUser},#{isEnable},#{assId})
+    </insert>
+
+    <select id="selectAnnouncementById" parameterType="java.lang.String" resultType="com.assocaition.management.module.announcement.entity.Announcement">
+        select * from announcement where assId = #{id} order by createTime desc limit 0,1;
+    </select>
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assocaition.management.module.foreground.dao.person.PersonMapper">
+
+    <update id="updateUser" parameterType="com.assocaition.management.module.authority.entity.AuthSysUser">
+        update authsys_user
+        set
+        <if test="user.urUserName!=null and user.urUserName!=''">
+            ur_user_name=#{user.urUserName}
+        </if>
+        <if test="user.email!=null and user.email!=''">
+            ,email=#{user.email}
+        </if>
+        <if test="user.telephone!=null and user.telephone!=''">
+            ,ur_telephone=#{user.telephone}
+        </if>
+        <if test="user.age!=null and user.age!=''">
+            ,age=#{user.age}
+        </if>
+        <if test="user.name!=null and user.name!=''">
+            ,name=#{user.name}
+        </if>
+        <if test="user.sex!=null and user.sex!=''">
+            ,sex=#{user.sex}
+        </if>
+        <if test="user.avatar!=null and user.avatar!=''">
+            ,avatar=#{user.avatar}
+        </if>
+        <if test="user.introduction!=null and user.introduction!=''">
+            ,introduction=#{user.introduction}
+        </if>
+        where ur_id=#{user.urId}
+    </update>
+
+    <select id="selectUserById" parameterType="java.lang.Integer" resultType="com.assocaition.management.module.authority.entity.AuthSysUser">
+        select
+            ur_id as urId,
+            ur_user_name as urUserName,
+            introduction as introduction,
+            name as name ,
+            ur_telephone as telephone,
+            type as type,
+            email as email,
+            age as age,
+            sex as sex,
+            avatar as avatar
+        from authsys_user where ur_id=#{urId}
+    </select>
+
+
+    <insert id="addUser" parameterType="com.assocaition.management.module.authority.entity.AuthSysUser">
+        insert into authsys_user(ur_user_name,ur_password,name,ur_telephone,type) values (#{urUserName}, #{urPassword},#{name},#{telephone},#{type})
+    </insert>
+</mapper>

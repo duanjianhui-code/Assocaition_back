@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <meta name="author" content="Ecology Theme">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoStudy - Education HTML5 Template</title>
+    <link rel="shortcut icon" href="http://ecologytheme.com/theme/ecostudy/images/favicon.ico" type="image/x-icon">
+    <!-- Goole Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/assets/bootstrap.min.css">
+    <!-- Font awsome CSS -->
+    <link rel="stylesheet" href="/css/assets/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/assets/flaticon.css">
+    <link rel="stylesheet" href="/css/assets/magnific-popup.css">
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="/css/assets/owl.carousel.css">
+    <link rel="stylesheet" href="/css/assets/owl.theme.css">
+    <link rel="stylesheet" href="/css/assets/animate.css">
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="/css/assets/slick.css">
+    <link rel="stylesheet" href="/css/assets/preloader.css"/>
+    <!-- Mean Menu-->
+    <link rel="stylesheet" href="/css/assets/meanmenu.css">
+    <!-- main style-->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/master.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/index_mobie.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/web_animation.css"/>
+    <script src="/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/web_animation.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="http://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="event_list_3">
+
+<!--页头-->
+<div id="header">
+    <div class="header_left">
+        欢迎来到高校社团网
+    </div>
+    <div class="header_right">
+        <img src="/img/footer_iphone.png" />&nbsp;
+        <label>400-000-0000</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <img src="/img/footer_email.png" >&nbsp;
+        <label>admin@yourdomain.com</label>&nbsp;&nbsp;
+        <img src="/img/login.png" class="demo2">
+        <label><a th:href="${session.userinfo != null?'/':'/foreground/toLogin'}" style="color: white" alt=""
+                  th:text="${session.userinfo == null?'登录':session.userinfo.name}">登录</a> </label>
+        <label th:if="${session.userinfo !=null}">&nbsp;&nbsp;<a href="/foreground/logout" style="color: white" alt="">注销</a> </label>
+
+    </div>
+</div>
+
+
+
+<!--========={ Title Header }========-->
+<section class="sub_header_banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-md-12 col-lg-12">
+                <div class="intro_text">
+                    <h1>活动</h1>
+                    <div class="pages_linka">
+                        <a href="" title="">Home</a>
+                        <a href="" title="" class="active">Event list 03</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- End title Header -->
+
+
+<!--========={ Popular Events }========-->
+<section class="popular_event">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12" th:each="activity:${activityList}">
+                <div class="events-single-box">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+                            <div class="date_event">
+                                <h3 th:text="${#dates.format(activity.applyDate,'yyyy-MM-dd HH:mm')}">10th<br >Jan, 2019</h3>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 p-0">
+                            <div class="event_banner">
+                                <a href="" title=""><img th:src="${activity.activityImg}" alt="" class="img-fluid"></a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 event-info">
+                            <h3><a href="" title="" th:text="${activity.theme}">Basic UI & UX Design for new development</a></h3>
+                            <div class="events-time">
+                                <span th:text="${activity.applyUser}"><i class="fa fa-clock-o event-icon"></i>8:00am - 5:00pm</span>
+                                <span th:text="${activity.status}"><i class="fa fa-map-marker event-icon"></i>New York</span>
+                            </div>
+                            <p th:text="${activity.content}">Lorem ipsum dolor sit amet mollis felis dapibus arcur donec phasellus eget. Etiam maecenas vel vici quis dictum rutrumnecnisi et. Ac penatibus aenean laoreet.</p>
+                           <div th:if="${activity.fileUrl} !=null">
+                               <a th:href="|/file/downloadFileByUrl.do?url=${activity.fileUrl}|" title="" class="apply_btn">活动附件<i class="flaticon-angle-arrow-pointing-to-right"></i></a>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section><!-- ./ End Popular Events -->
+
+
+
+<!--========={ Footer }========-->
+<div id="foot">
+    <div class="foot_up">
+        <div class="foot_up_title_one">
+            高校社团网
+        </div>
+        <div class="foot_up_title_two">
+            SCHOOL OF EDUCAtTION CD., LTD
+        </div>
+    </div>
+    <div class="foot_up_contet">
+        <div class="foot_up_contet_left">
+            <div class="fucl_title">联系方式</div>
+            <div class="fucl_title1">
+                <img src="/img/foot_img1.png" >
+                &nbsp;联系电话：400-000-0000
+            </div>
+            <div class="fucl_title2">
+                <img src="/img/foot_img2.png" >
+                &nbsp;邮箱：admin@yourdomain.com
+            </div>
+            <div class="fucl_title3">
+                <img src="/img/foot_img3.png" >
+                &nbsp;地址：上海市浦东新区保利广场B栋
+            </div>
+        </div>
+        <div class="foot_up_contet_middle">
+            <div class="fucl_title">网站导航</div>
+            <ul>
+                <li><a href="/foreground/toIndex">首页</a></li>
+                <li><a href="/foreground/toAssociation">社团列表</a></li>
+                <li><a href="/foreground/toMyAssociation">我的社团</a></li>
+                <li><a href="/foreground/toPersonal">个人信息维护</a></li>
+                <li><a href="/foreground/toOur">关于我们</a></li>
+            </ul>
+        </div>
+        <div class="foot_up_contet_right">
+            <div class="fucl_title">
+                更好关注
+            </div>
+            <div class="foot_up_contet_right_middle">
+                扫描二维码，我们会最新的商品为您推荐，为您更好的体验与服务。
+            </div>
+            <div id="foot_up_contet_right_down">
+                <div class="foot_up_contet_right_down1">
+                    <img src="/img/url.png" >
+                </div>
+                <div class="foot_up_contet_right_down2">
+                    手机扫一扫
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="foot_down">
+        Copyright @ 2019-2030 Company name All rights reserved
+    </div>
+</div>
+
+<!--============= { Ccroll Top} ===========-->
+<section id="scroll-top" class="scroll-top">
+    <h2>&nbsp;</h2>
+    <div class="to-top pos-rtive">
+        <a href="#"><i class = "flaticon-up-arrow"></i></a>
+    </div>
+</section>
+
+
+<!-- JavaScript -->
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/slick.min.js"></script>
+<script src="/js/jquery.meanmenu.min.js"></script>
+<script src="/js/wow.min.js"></script>
+<script src="/js/custom.js"></script>
+</body>
+</html>

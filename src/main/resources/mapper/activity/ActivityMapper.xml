@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assocaition.management.module.activity.dao.ActivityMapper">
+
+
+
+    <select id="selectAll" resultType="com.assocaition.management.module.assocaition.entity.Assocaition">
+        select * from assocaition
+    </select>
+
+    <select id="selectActivityById" parameterType="java.lang.String" resultType="com.assocaition.management.module.activity.entity.Activity">
+        select *
+        from activity
+        where assId=#{id} and status='1'
+    </select>
+
+    <insert id="addActivity" parameterType="com.assocaition.management.module.activity.entity.Activity">
+        insert into activity (id,theme,content,assId,applyUser,applyDate,status,activityImg,fileUrl)
+        values (#{id},#{theme},#{content},#{assId},#{applyUser},#{applyDate},#{status},#{activityImg},#{fileUrl});
+    </insert>
+
+    <select id="selectActivitysById" parameterType="java.lang.String" resultType="com.assocaition.management.module.activity.entity.Activity">
+        select *
+        from activity
+        where assId=#{id}
+    </select>
+
+    <select id="selectAllActivityList" parameterType="com.assocaition.management.module.activity.entity.ActivityVo" resultType="com.assocaition.management.module.activity.entity.Activity">
+        select * from activity  where assId in
+        (select id from assocaition where parentId=#{memberVo.assId})
+        <if test="memberVo.theme!=null and ''!=memberVo.theme">
+            AND INSTR(theme,#{memberVo.theme})>0
+        </if>
+        <if test="memberVo.applyUser!=null and ''!=memberVo.applyUser">
+            AND INSTR(memberVo.applyUser,#{memberVo.applyUser})>0
+        </if>
+    </select>
+
+
+    <select id="countselectAllActivityList" parameterType="com.assocaition.management.module.activity.entity.ActivityVo" resultType="java.lang.Integer">
+        select count(*) from activity  where assId in
+        (select id from assocaition where parentId=#{memberVo.assId})
+        <if test="memberVo.theme!=null and ''!=memberVo.theme">
+            AND INSTR(theme,#{memberVo.theme})>0
+        </if>
+        <if test="memberVo.applyUser!=null and ''!=memberVo.applyUser">
+        AND INSTR(memberVo.applyUser,#{memberVo.applyUser})>0
+        </if>
+    </select>
+
+    <select id="selectActivityList" parameterType="com.assocaition.management.module.activity.entity.ActivityVo" resultType="com.assocaition.management.module.activity.entity.Activity">
+        select * from activity  where assId=#{memberVo.assId}
+        <if test="memberVo.theme!=null and ''!=memberVo.theme">
+            AND INSTR(theme,#{memberVo.theme})>0
+        </if>
+        <if test="memberVo.applyUser!=null and ''!=memberVo.applyUser">
+            AND INSTR(memberVo.applyUser,#{memberVo.applyUser})>0
+        </if>
+    </select>
+
+
+    <select id="countselectActivityList" parameterType="com.assocaition.management.module.activity.entity.ActivityVo" resultType="java.lang.Integer">
+        select count(*) from activity  where assId =#{memberVo.assId}
+        <if test="memberVo.theme!=null and ''!=memberVo.theme">
+            AND INSTR(theme,#{memberVo.theme})>0
+        </if>
+        <if test="memberVo.applyUser!=null and ''!=memberVo.applyUser">
+            AND INSTR(memberVo.applyUser,#{memberVo.applyUser})>0
+        </if>
+    </select>
+
+    <update id="auditActivity" parameterType="com.assocaition.management.module.activity.entity.Activity">
+        update activity set status='1' where id =#{id}
+    </update>
+
+    <delete id="deleteActivityById" parameterType="java.lang.String">
+        delete from activity where id=#{id}
+    </delete>
+
+    <select id="selectPassAllActivityList" parameterType="com.assocaition.management.module.activity.entity.ActivityVo" resultType="com.assocaition.management.module.activity.entity.Activity">
+        select * from activity  where assId in
+        (select id from assocaition where parentId=#{memberVo.assId})
+        <if test="memberVo.theme!=null and ''!=memberVo.theme">
+            AND INSTR(theme,#{memberVo.theme})>0
+        </if>
+        <if test="memberVo.applyUser!=null and ''!=memberVo.applyUser">
+            AND INSTR(memberVo.applyUser,#{memberVo.applyUser})>0
+        </if>
+        and status='1'
+    </select>
+
+
+    <select id="countselectPassAllActivityList" parameterType="com.assocaition.management.module.activity.entity.ActivityVo" resultType="java.lang.Integer">
+        select count(*) from activity  where assId in
+        (select id from assocaition where parentId=#{memberVo.assId})
+        <if test="memberVo.theme!=null and ''!=memberVo.theme">
+            AND INSTR(theme,#{memberVo.theme})>0
+        </if>
+        <if test="memberVo.applyUser!=null and ''!=memberVo.applyUser">
+            AND INSTR(memberVo.applyUser,#{memberVo.applyUser})>0
+        </if>
+        and status='1'
+    </select>
+
+    <select id="selectPassActivityList" parameterType="com.assocaition.management.module.activity.entity.ActivityVo" resultType="com.assocaition.management.module.activity.entity.Activity">
+        select * from activity  where assId=#{memberVo.assId}
+        <if test="memberVo.theme!=null and ''!=memberVo.theme">
+            AND INSTR(theme,#{memberVo.theme})>0
+        </if>
+        <if test="memberVo.applyUser!=null and ''!=memberVo.applyUser">
+            AND INSTR(memberVo.applyUser,#{memberVo.applyUser})>0
+        </if>
+        and status='1'
+    </select>
+
+
+    <select id="countselectPassActivityList" parameterType="com.assocaition.management.module.activity.entity.ActivityVo" resultType="java.lang.Integer">
+        select count(*) from activity  where assId =#{memberVo.assId}
+        <if test="memberVo.theme!=null and ''!=memberVo.theme">
+            AND INSTR(theme,#{memberVo.theme})>0
+        </if>
+        <if test="memberVo.applyUser!=null and ''!=memberVo.applyUser">
+            AND INSTR(memberVo.applyUser,#{memberVo.applyUser})>0
+        </if>
+        and status='1'
+    </select>
+
+</mapper>

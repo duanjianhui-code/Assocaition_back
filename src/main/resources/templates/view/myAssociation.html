@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>我的社团</title>
+		<link rel="stylesheet" href="/css/news_information.css" />
+		<script type="text/javascript" src="/js/jquery-3.3.1.js" ></script>
+		<script src="/js/web_animation.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="/css/web_animation.css"/>
+		<script type="text/javascript">
+			function ym1(){
+			var odi1=document.getElementsByClassName("center-1");//页面一
+			var odi2=document.getElementsByClassName("center-1-1");//页面二
+			if(odi2[0].style.display=="none"){
+				
+			}else{
+				odi1[0].style.display="block";
+				odi2[0].style.display="none";
+				
+			}
+		}
+		function ym2(){
+			var odi1=document.getElementsByClassName("center-1");//页面一
+			var odi2=document.getElementsByClassName("center-1-1");//页面二
+			if(odi1[0].style.display=="none"){
+				
+			}else{
+				odi1[0].style.display="none";
+				odi2[0].style.display="block";
+				
+			}
+		}
+		$(function(){
+			$("#dyq").click(function(){
+				$("#dy").hide();
+				$("#xy").show();
+			})
+		})
+		$(function(){
+			$("#xyq").click(function(){
+				$("#xy").hide();
+				$("#dy").show();
+			})
+		})
+		$(function(){
+			$("#dy").click(function(){
+				$("#dy").hide();
+				$("#xy").show();
+			})
+		})
+		$(function(){
+			$("#xy").click(function(){
+				$("#xy").hide();
+				$("#dy").show();
+			})
+		})
+		</script>
+	</head>
+	<body>
+		<div id="totals">
+			<div id="wrap">
+			<!-- 头部 -->
+				<!-- 头部 -->
+				<div id="header">
+					<div class="header_left">
+						欢迎来到高校社团网
+					</div>
+					<div class="header_right">
+						<img src="/img/footer_iphone.png" />&nbsp;
+						<label>400-000-0000</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<img src="/img/footer_email.png" >&nbsp;
+						<label>admin@yourdomain.com</label>
+						<img src="/img/login.png" class="demo2">
+						<label><a th:href="${session.userinfo != null?'/':'/foreground/toLogin'}" style="color: white" alt=""
+								  th:text="${session.userinfo == null?'登录':session.userinfo.name}">登录</a> </label>
+						<label th:if="${session.userinfo !=null}">&nbsp;&nbsp;<a href="/foreground/logout" style="color: white" alt="">注销</a> </label>
+
+					</div>
+				</div>
+				<!-- 菜单栏部分 -->
+				<div id="nav">
+					<div class="nav_left">
+						<label><img src="/img/logo.png" ></label>
+					</div>
+					<div class="nav_right">
+						<ul>
+							<li><a href="/foreground/toIndex">首页</a></li>
+							<li><a href="/foreground/toAssociation">社团列表</a></li>
+							<li><a href="/foreground/toMyAssociation" style="color: orange;">我的社团</a></li>
+							<li><a href="/foreground/toPersonal">个人信息维护</a></li>
+							<li><a href="/foreground/toOur">关于我们</a></li>
+						</ul>
+				</div>
+				<!-- 手机端导航栏效果 -->
+				<div class="nav_right_modile_wrap">
+					<div class="nav_right_modile" onclick="navModile()">
+						
+					</div>
+				</div>
+			</div>
+			<!-- 滚动图部分 -->
+			<div id="column">
+				<div id="column_move1" class="column_text_wrap">
+					<div class="column_text_t">我的社团</div>
+					<div class="column_text_f"></div>
+				</div>
+			</div>
+	    </div>
+	    
+	    <!--第一页的图片-->
+			<div id="center">
+				  <h2>我的社团</h2>
+			</div>
+			
+			<div class="center-1">
+				<div class="cemter">
+					<div id="one" th:each="assocaition:${assocaitions}">
+						<div class="imgs">
+						    <img th:src="${assocaition.indexImageUrl}" width="100%" height="100%"/><br />
+						</div>
+						<input type="hidden" th:value="${assocaition.id}" class="assId">
+						<h3 th:text="${assocaition.assName}">日语在线</h3><br />
+						<span th:text="${assocaition.introduction}">四部门出手，说明教育培训机构的管理政出多门，而多头管理的弊端通常就是管理薄弱。</span><br /><br />
+						<input type="button" id="buttons" onclick="cemterBtnClick(this)" class="buttons" value="查看"/>&nbsp;&nbsp;<span th:text="${assocaition.createTime}">2020-03-19</span><br /><br/>
+					</div>
+				</div>
+			</div>
+
+			<!--按钮-->
+			<div id="button">
+
+			</div>
+			<!--最底下部分-->
+			<div id="foot">
+				<div class="foot_up">
+					<div class="foot_up_title_one">
+						高校社团网
+					</div>
+					<div class="foot_up_title_two">
+						SCHOOL OF EDUCAtTION CD., LTD
+					</div>
+				</div>
+				<div class="foot_up_contet">
+					<div class="foot_up_contet_left">
+						<div class="fucl_title">联系方式</div>
+						<div class="fucl_title1">
+							<img src="/img/foot_img1.png" >
+							&nbsp;联系电话：400-000-0000
+						</div>
+						<div class="fucl_title2">
+							<img src="/img/foot_img2.png" >
+							&nbsp;邮箱：admin@yourdomain.com
+						</div>
+						<div class="fucl_title3">
+							<img src="/img/foot_img3.png" >
+							&nbsp;地址：上海市浦东新区保利广场B栋
+						</div>
+					</div>
+					<div class="foot_up_contet_middle">
+						<div class="fucl_title">网站导航</div>
+						<ul>
+							<li><a href="/foreground/toIndex">首页</a></li>
+							<li><a href="/foreground/toAssociation">社团列表</a></li>
+							<li><a href="/foreground/toMyAssociation">我的社团</a></li>
+							<li><a href="/foreground/toPersonal">个人信息维护</a></li>
+							<li><a href="/foreground/toOur">关于我们</a></li>
+						</ul>
+					</div>
+					<div class="foot_up_contet_right">
+						<div class="fucl_title">
+							更好关注
+						</div>
+						<div class="foot_up_contet_right_middle">
+							扫描二维码，我们会最新的商品为您推荐，为您更好的体验与服务。
+						</div>
+						<div id="foot_up_contet_right_down">
+							<div class="foot_up_contet_right_down1">
+								<img src="/img/1584433332907a29ed7f20576daf1.png" >
+							</div>
+							<div class="foot_up_contet_right_down2">
+								手机扫一扫
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="foot_down">
+					Copyright @ 2019-2030 Company name All rights reserved
+				</div>
+			</div>
+		</div>
+		<!-- 手机端导航栏 -->
+		<div id="nav_mobile">
+			<div class="nav_mobile_all nav_mobile1">
+				<a href="/foreground/toIndex"><img src="/img/nav_mobile_img1.png" ></a>
+				<a href="/foreground/toIndex">首页</a>
+			</div>
+			<div class="nav_mobile_all nav_mobile2">
+				<a href="/foreground/toAssociation"><img src="/img/nav_mobile_img2.png" ></a>
+				<a href="/foreground/toAssociation">社团列表</a>
+			</div>
+			<div class="nav_mobile_all nav_mobile3">
+				<a href="/foreground/toMyAssociation"><img src="/img/nav_mobile_img3.png" ></a>
+				<a href="/foreground/toMyAssociation">我的社团</a>
+			</div>
+			<div class="nav_mobile_all nav_mobile4">
+				<a href="/foreground/toPersonal"><img src="/img/nav_mobile_img4.png" ></a>
+				<a href="/foreground/toPersonal">个人信息维护</a>
+			</div>
+			<div class="nav_mobile_all nav_mobile5">
+				<a href="/foreground/toOur"><img src="/img/nav_mobile_img5.png" ></a>
+				<a href="/foreground/toOur">关于我们</a>
+			</div>
+		</div>
+		<!-- 最右边边按钮点击后的结构 -->
+		<div id="nav_mobile_w">
+			<div class="nav_mobile_w_top">
+				<img src="/img/nav_modile_background_w.png" onclick="navModiles()">
+			</div>
+			<div class="nav_mobile_w_foot">
+				<ul>
+					<li><a href="/foreground/toIndex">首页</a></li>
+					<li><a href="/foreground/toAssociation">社团列表</a></li>
+					<li><a href="/foreground/toMyAssociation">我的社团</a></li>
+					<li><a href="/foreground/toPersonal">个人信息维护</a></li>
+					<li><a href="/foreground/toOur">关于我们</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- 手机端导航栏被点击后的效果 -->
+		<script type="text/javascript">
+			function navModile(){
+				 $("#nav_mobile_w").slideDown(500); 
+			}
+			function navModiles(){
+				$("#nav_mobile_w").slideUp(500);
+			}
+
+			function cemterBtnClick(e){
+				var assId = $(e).parent().find(".assId").val()
+				window.location.href="/fassociation/toMyAssocaitionInfo.do?id="+assId
+			}
+		</script>
+	</body>
+</html>
